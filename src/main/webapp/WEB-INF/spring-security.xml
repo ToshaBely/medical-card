@@ -5,14 +5,14 @@
     http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
     <http auto-config="true" >
+        <form-login  login-page="/login"/>
         <intercept-url pattern="/" access="permitAll" />
-        <intercept-url pattern="/welcome" access="permitAll" />
-        <intercept-url pattern="/admin" access="hasRole('ADMIN')" />
-        <form-login  login-page="/login" username-parameter="ssoId" password-parameter="password" authentication-failure-url="/Access_Denied" />
-        <csrf/>
+        <intercept-url pattern="/welcome" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+        <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
+        <csrf disabled="true"/>
     </http>
 
-    <authentication-manager >
+    <authentication-manager alias="authenticationManager">
         <authentication-provider>
             <user-service>
                 <user name="user"  password="user"  authorities="ROLE_USER" />
@@ -20,6 +20,5 @@
             </user-service>
         </authentication-provider>
     </authentication-manager>
-
 
 </beans:beans>

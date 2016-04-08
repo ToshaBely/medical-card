@@ -10,7 +10,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <springframework.version>3.1.1.RELEASE</springframework.version>
+        <springframework.version>4.1.7.RELEASE</springframework.version>
         <springsecurity.version>4.0.1.RELEASE</springsecurity.version>
     </properties>
 
@@ -64,6 +64,5 @@
             <version>1.2</version>
         </dependency>
     </dependencies>
-
 
 </project>

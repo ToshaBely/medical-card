@@ -15,7 +15,7 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(ModelMap model) {
         model.addAttribute("message", "From Login");
-        return "welcome";
+        return "login";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
