@@ -6,6 +6,12 @@
     <title></title>
 </head>
 <body>
-${message}
+
+<div>
+    ${message}
+</div>
+
+<a href="/logout">Logout</a>
+
 </body>
 </html>
