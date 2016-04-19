@@ -10,6 +10,7 @@
         <intercept-url pattern="/" access="permitAll" />
         <intercept-url pattern="/welcome" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/hello.xhtml" access="permitAll" />
         <csrf disabled="true"/>
     </http>
 

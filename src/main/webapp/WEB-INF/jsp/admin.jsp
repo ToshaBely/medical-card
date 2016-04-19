@@ -11,6 +11,6 @@
     <title></title>
 </head>
 <body>
-ADMIN
+  <jsp:forward page="../../hello.xhtml" />
 </body>
 </html>
