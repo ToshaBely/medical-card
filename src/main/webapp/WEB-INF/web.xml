@@ -36,6 +36,13 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    
+    <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>
+            /WEB-INF/faces-config.xml
+        </param-value>
+    </context-param>
 
     <!-- JSF mapping -->
     <servlet>
@@ -53,8 +60,4 @@
         <servlet-name>facesServlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-
-    <welcome-file-list>
-        <welcome-file>faces/hello.xhtml</welcome-file>
-    </welcome-file-list>
 </web-app>

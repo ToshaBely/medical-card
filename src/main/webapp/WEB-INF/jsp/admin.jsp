@@ -11,6 +11,6 @@
     <title></title>
 </head>
 <body>
-  <jsp:forward page="../../hello.xhtml" />
+  <jsp:forward page="/template/main.xhtml" />
 </body>
 </html>

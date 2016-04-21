@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String root() {
-        return "redirect:/welcome";
+        return "redirect:/admin";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

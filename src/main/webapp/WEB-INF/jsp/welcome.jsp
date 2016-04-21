@@ -12,6 +12,7 @@
 </div>
 
 <a href="/logout">Logout</a>
+<a href="/admin">Admin page</a>
 
 </body>
 </html>
