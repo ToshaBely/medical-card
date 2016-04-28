@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class PatientServiceImpl implements PatientService {
     @Autowired
@@ -21,5 +23,11 @@ public class PatientServiceImpl implements PatientService {
     @Transactional
     public Patient getPatient(long id) {
         return patientDAO.getPatient(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Patient> getAll() {
+        return patientDAO.getAll();
     }
 }

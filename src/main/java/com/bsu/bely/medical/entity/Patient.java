@@ -1,6 +1,7 @@
 package com.bsu.bely.medical.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Patient {
@@ -19,6 +20,9 @@ public class Patient {
 
     @Column(name = "telephone_number")
     private String telephoneNumber;
+
+    @Column(name = "birth_day")
+    private Date birthDay;
 
     public Long getId() {
         return id;
@@ -54,5 +58,13 @@ public class Patient {
 
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
+    }
+
+    public Date getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
     }
 }

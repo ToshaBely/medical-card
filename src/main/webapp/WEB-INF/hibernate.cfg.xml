@@ -6,23 +6,8 @@
 <hibernate-configuration>
     <session-factory>
 
-        <!--&lt;!&ndash; Connection settings &ndash;&gt;-->
-        <!--<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>-->
-        <!--<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/medical_app</property>-->
-        <!--<property name="hibernate.connection.username">anton</property>-->
-        <!--<property name="hibernate.connection.password">password</property>-->
-
-        <!--&lt;!&ndash; SQL dialect &ndash;&gt;-->
-        <!--<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>-->
-
-        <!--&lt;!&ndash; Print executed SQL to stdout &ndash;&gt;-->
-        <!--<property name="show_sql">true</property>-->
-
-        <!--&lt;!&ndash; Drop and re-create all database on startup &ndash;&gt;-->
-        <!--<property name="hibernate.hbm2ddl.auto">create-drop</property>-->
-
-        <!--&lt;!&ndash;&lt;!&ndash; Annotated entity classes &ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;<mapping class="com.bsu.bely.medical.entity.Patient"/>&ndash;&gt;-->
+        <!--&lt;!&ndash; Annotated entity classes &ndash;&gt;-->
+        <mapping class="com.bsu.bely.medical.entity.Patient"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -18,14 +18,14 @@
         </navigation-case>
 
         <navigation-case>
-            <from-outcome>page1</from-outcome>
-            <to-view-id>/page/page1.xhtml</to-view-id>
+            <from-outcome>createNewPatient</from-outcome>
+            <to-view-id>/page/create-new-patient.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
 
         <navigation-case>
-            <from-outcome>content</from-outcome>
-            <to-view-id>/page/content.xhtml</to-view-id>
+            <from-outcome>patients</from-outcome>
+            <to-view-id>/page/patients.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
 
