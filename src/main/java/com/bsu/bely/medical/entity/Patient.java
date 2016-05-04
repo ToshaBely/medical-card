@@ -2,8 +2,10 @@ package com.bsu.bely.medical.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
+@Table(name = "patient")
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +25,12 @@ public class Patient {
 
     @Column(name = "birth_day")
     private Date birthDay;
+
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private Set<OverallHealth> overallHealthSet;
+
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private Set<ThermalSheet> thermalSheets;
 
     public Long getId() {
         return id;
@@ -66,5 +74,21 @@ public class Patient {
 
     public void setBirthDay(Date birthDay) {
         this.birthDay = birthDay;
+    }
+
+    public Set<OverallHealth> getOverallHealthSet() {
+        return overallHealthSet;
+    }
+
+    public void setOverallHealthSet(Set<OverallHealth> overallHealthSet) {
+        this.overallHealthSet = overallHealthSet;
+    }
+
+    public Set<ThermalSheet> getThermalSheets() {
+        return thermalSheets;
+    }
+
+    public void setThermalSheets(Set<ThermalSheet> thermalSheets) {
+        this.thermalSheets = thermalSheets;
     }
 }

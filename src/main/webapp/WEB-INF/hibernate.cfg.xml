@@ -8,6 +8,8 @@
 
         <!--&lt;!&ndash; Annotated entity classes &ndash;&gt;-->
         <mapping class="com.bsu.bely.medical.entity.Patient"/>
+        <mapping class="com.bsu.bely.medical.entity.OverallHealth"/>
+        <mapping class="com.bsu.bely.medical.entity.ThermalSheet"/>
 
     </session-factory>
 </hibernate-configuration>

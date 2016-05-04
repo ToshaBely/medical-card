@@ -1,5 +1,6 @@
-package com.bsu.bely.medical.dao;
+package com.bsu.bely.medical.dao.impl;
 
+import com.bsu.bely.medical.dao.PatientDAO;
 import com.bsu.bely.medical.entity.Patient;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
