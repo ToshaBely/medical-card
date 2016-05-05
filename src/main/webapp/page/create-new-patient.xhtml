@@ -9,32 +9,35 @@
 
     <ui:composition template="/template/main.xhtml">
         <ui:define name="body">
-            <h:form id="patientForm">
-                <p:panelGrid columns="2">
-                    <h:outputText value="First name: "/>
-                    <p:inputText value="#{createPatientBean.createdPatient.firstName}"/>
+            <!--<p:dialog header="New Patient" widgetVar="createNewPatient" resizable="false"-->
+                      <!--closable="true" modal="true" dynamic="true">-->
+                <h:form id="patientForm">
+                    <p:panelGrid columns="2">
+                        <h:outputText value="First name: "/>
+                        <p:inputText value="#{createPatientBean.createdPatient.firstName}"/>
 
-                    <h:outputText value="Last name: "/>
-                    <p:inputText value="#{createPatientBean.createdPatient.lastName}"/>
+                        <h:outputText value="Last name: "/>
+                        <p:inputText value="#{createPatientBean.createdPatient.lastName}"/>
 
-                    <h:outputText value="Passport: "/>
-                    <p:inputText value="#{createPatientBean.createdPatient.passport}"/>
+                        <h:outputText value="Passport: "/>
+                        <p:inputText value="#{createPatientBean.createdPatient.passport}"/>
 
-                    <h:outputText value="Telephone number: "/>
-                    <p:inputText value="#{createPatientBean.createdPatient.telephoneNumber}"/>
+                        <h:outputText value="Telephone number: "/>
+                        <p:inputText value="#{createPatientBean.createdPatient.telephoneNumber}"/>
 
-                    <!--<h:outputText value="Telephone number: "/>-->
-                    <!--<h:inputText value="#{createPatientBean.createdPatient.birthDay}">-->
-                        <!--<f:convertDateTime pattern="dd-MM-yyyy"/>-->
-                    <!--</h:inputText>-->
-                </p:panelGrid>
+                        <!--<h:outputText value="Telephone number: "/>-->
+                        <!--<h:inputText value="#{createPatientBean.createdPatient.birthDay}">-->
+                            <!--<f:convertDateTime pattern="dd-MM-yyyy"/>-->
+                        <!--</h:inputText>-->
+                    </p:panelGrid>
 
-                <p:commandButton value="Save" actionListener="#{createPatientBean.saveCreatedPatient}" update="patientForm, last" oncomplete="PF('createdPatientDlg').show()"/>
-            </h:form>
+                    <p:commandButton value="Save" actionListener="#{createPatientBean.saveCreatedPatient}" update="patientForm, last" oncomplete="PF('createdPatientDlg').show()"/>
+                </h:form>
+            <!--</p:dialog>-->
 
-            <p:dialog header="Created patient" modal="true" widgetVar="createdPatientDlg" showEffect="fade" resizable="false">
-                <h:outputText id="last" value="#{createPatientBean.lastCreatedPatient}"/>
-            </p:dialog>
+            <!--<p:dialog header="Created patient" modal="true" widgetVar="createdPatientDlg" showEffect="fade" resizable="false">-->
+                <!--<h:outputText id="last" value="#{createPatientBean.lastCreatedPatient}"/>-->
+            <!--</p:dialog>-->
         </ui:define>
     </ui:composition>
 

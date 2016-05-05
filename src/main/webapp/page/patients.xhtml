@@ -9,7 +9,10 @@
 
     <ui:composition template="/template/main.xhtml">
         <ui:define name="body">
-            <p:dataTable var="patient" value="#{patientBean.patientList}">
+            <p:fieldset style="margin-bottom: 10px;">
+                <p:commandButton value="Add" oncomplete="PF('createNewPatient').show()"/>
+            </p:fieldset>
+            <p:dataTable id="patientTable" var="patient" value="#{patientBean.patientList}">
                 <p:column headerText="First Name">
                     <h:outputText value="#{patient.firstName}"/>
                 </p:column>
@@ -19,7 +22,9 @@
                 </p:column>
 
                 <p:column headerText="Birthday">
-                    <h:outputText value="#{patient.birthDay}"/>
+                    <h:outputText value="#{patient.birthDay}">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:outputText>
                 </p:column>
 
                 <p:column headerText="Passport">
@@ -30,6 +35,33 @@
                     <h:outputText value="#{patient.telephoneNumber}"/>
                 </p:column>
             </p:dataTable>
+
+            <p:dialog header="New Patient" widgetVar="createNewPatient" resizable="false"
+                      closable="true" modal="true" dynamic="true">
+                <h:form id="patientForm">
+                    <p:panelGrid columns="2">
+                        <h:outputText value="First name: "/>
+                        <p:inputText value="#{patientBean.createdPatient.firstName}"/>
+
+                        <h:outputText value="Last name: "/>
+                        <p:inputText value="#{patientBean.createdPatient.lastName}"/>
+
+                        <h:outputText value="Passport: "/>
+                        <p:inputText value="#{patientBean.createdPatient.passport}"/>
+
+                        <h:outputText value="Telephone number: "/>
+                        <p:inputText value="#{patientBean.createdPatient.telephoneNumber}"/>
+
+                        <h:outputText value="Birthday: "/>
+                        <p:calendar value="#{patientBean.createdPatient.birthDay}"
+                                    title="MM/dd/yyyy" pattern="MM/dd/yyyy" showOn="button"/>
+                    </p:panelGrid>
+
+                    <p:commandButton value="Save" actionListener="#{patientBean.saveCreatedPatient}"
+                                     update="patientForm, patientTable" oncomplete="PF('createNewPatient').hide()"/>
+                </h:form>
+            </p:dialog>
+
         </ui:define>
     </ui:composition>
 

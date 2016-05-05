@@ -27,7 +27,7 @@ public class Patient {
     private Date birthDay;
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
-    private Set<OverallHealth> overallHealthSet;
+    private Set<HealthStatus> overallHealthSet;
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private Set<ThermalSheet> thermalSheets;
@@ -76,11 +76,11 @@ public class Patient {
         this.birthDay = birthDay;
     }
 
-    public Set<OverallHealth> getOverallHealthSet() {
+    public Set<HealthStatus> getOverallHealthSet() {
         return overallHealthSet;
     }
 
-    public void setOverallHealthSet(Set<OverallHealth> overallHealthSet) {
+    public void setOverallHealthSet(Set<HealthStatus> overallHealthSet) {
         this.overallHealthSet = overallHealthSet;
     }
 

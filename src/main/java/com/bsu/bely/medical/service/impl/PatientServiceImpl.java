@@ -1,7 +1,8 @@
-package com.bsu.bely.medical.service;
+package com.bsu.bely.medical.service.impl;
 
 import com.bsu.bely.medical.dao.PatientDAO;
 import com.bsu.bely.medical.entity.Patient;
+import com.bsu.bely.medical.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

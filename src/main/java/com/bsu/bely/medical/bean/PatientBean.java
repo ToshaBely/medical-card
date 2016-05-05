@@ -19,8 +19,17 @@ public class PatientBean {
 
     private List<Patient> patientList;
 
+    private Patient createdPatient;
+
     @PostConstruct
     private void init() {
+        patientList = patientService.getAll();
+        createdPatient = new Patient();
+    }
+
+    public void saveCreatedPatient() {
+        patientService.addPatient(createdPatient);
+        createdPatient = new Patient();
         patientList = patientService.getAll();
     }
 
@@ -30,5 +39,13 @@ public class PatientBean {
 
     public List<Patient> getPatientList() {
         return patientList;
+    }
+
+    public Patient getCreatedPatient() {
+        return createdPatient;
+    }
+
+    public void setCreatedPatient(Patient createdPatient) {
+        this.createdPatient = createdPatient;
     }
 }

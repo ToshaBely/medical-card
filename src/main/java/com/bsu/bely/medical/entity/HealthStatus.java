@@ -4,11 +4,24 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "overall_health")
-public class OverallHealth {
+@Table(name = "health_status")
+public class HealthStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "overall_health")
+    private String overallHealth;
+
+    @Column(name = "conscious")
+    private String conscious;
+
+
+    @Column(name = "skin_covering")
+    private String skinCovering;
+
+    @Column(name = "liver")
+    private String liver;
 
     @Column(name = "weight")
     private Integer weight;
@@ -112,5 +125,37 @@ public class OverallHealth {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public String getOverallHealth() {
+        return overallHealth;
+    }
+
+    public void setOverallHealth(String overallHealth) {
+        this.overallHealth = overallHealth;
+    }
+
+    public String getConscious() {
+        return conscious;
+    }
+
+    public void setConscious(String conscious) {
+        this.conscious = conscious;
+    }
+
+    public String getSkinCovering() {
+        return skinCovering;
+    }
+
+    public void setSkinCovering(String skinCovering) {
+        this.skinCovering = skinCovering;
+    }
+
+    public String getLiver() {
+        return liver;
+    }
+
+    public void setLiver(String liver) {
+        this.liver = liver;
     }
 }
