@@ -11,7 +11,7 @@
         <intercept-url pattern="/welcome" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
         <intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
         <intercept-url pattern="/template/main.xhtml" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
-        <intercept-url pattern="/page/create-new-patient.xhtml" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
+        <intercept-url pattern="/page/thermal-sheet.xhtml" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
         <intercept-url pattern="/page/patients.xhtml" access="hasRole('ROLE_ADMIN')"/>
         <csrf disabled="true"/>
     </http>

@@ -7,6 +7,16 @@
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
+
+    <converter>
+        <converter-for-class>java.lang.Enum</converter-for-class>
+        <converter-class>javax.faces.convert.EnumConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-for-class>java.lang.String</converter-for-class>
+        <converter-class>com.bsu.bely.medical.converter.StringConverter</converter-class>
+    </converter>
     
     <navigation-rule>
         <from-view-id>*</from-view-id>
@@ -18,8 +28,8 @@
         </navigation-case>
 
         <navigation-case>
-            <from-outcome>createNewPatient</from-outcome>
-            <to-view-id>/page/create-new-patient.xhtml</to-view-id>
+            <from-outcome>thermalSheet</from-outcome>
+            <to-view-id>/page/thermal-sheet.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
 
@@ -30,5 +40,10 @@
         </navigation-case>
 
     </navigation-rule>
+
+    <converter>
+        <converter-id>patientConverter</converter-id>
+        <converter-class>com.bsu.bely.medical.converter.PatientConverter</converter-class>
+    </converter>
   
 </faces-config>

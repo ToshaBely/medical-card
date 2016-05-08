@@ -2,6 +2,7 @@ package com.bsu.bely.medical.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -31,6 +32,27 @@ public class Patient {
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private Set<ThermalSheet> thermalSheets;
+
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Patient)) {
+            return false;
+        }
+        Patient p = (Patient) obj;
+        return Objects.equals(this.id, p.id);
+    }
 
     public Long getId() {
         return id;
