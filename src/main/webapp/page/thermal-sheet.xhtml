@@ -9,22 +9,21 @@
 
     <ui:composition template="/template/main.xhtml">
         <ui:define name="body">
-            <p:fieldset style="margin-bottom: 10px;">
-                <p:commandButton value="Add" oncomplete="PF('createNewRecord').show()"/>
-            </p:fieldset>
-
             <h:form id="filterForm">
                 <p:fieldset>
-                    <h:outputText value="Patient: " style="margin-right: 10px;"/>
+                    <p:commandButton value="Add" oncomplete="PF('createNewRecord').show()"/>
+
+                    <p:commandButton action="#{thermalSheetBean.applyFilter}" value="Apply filter"
+                                     style="float: right;" update="thermalList"/>
+
                     <p:selectOneMenu value="#{thermalSheetBean.selectedPatient}" converter="patientConverter"
-                                     style="vertical-align: middle; width: 200px">
+                                     style="vertical-align: middle; width: 200px; float: right; margin-right: 10px;">
                         <f:selectItem itemLabel="Select" itemDisabled="true"/>
                         <f:selectItems value="#{thermalSheetBean.patientList}" var="patient"
                                        itemLabel="#{patient.fullName}" itemValue="#{patient}"/>
                     </p:selectOneMenu>
 
-                    <p:commandButton action="#{thermalSheetBean.applyFilter}" value="Apply filter"
-                                     style="float: right;" update="thermalList"/>
+                    <h:outputText value="Patient: " style="margin-right: 10px; float: right;"/>
                 </p:fieldset>
             </h:form>
 
