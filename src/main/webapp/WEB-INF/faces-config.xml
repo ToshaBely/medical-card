@@ -45,6 +45,12 @@
             <redirect/>
         </navigation-case>
 
+        <navigation-case>
+            <from-outcome>healthStatus</from-outcome>
+            <to-view-id>/page/health-status.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
     </navigation-rule>
 
     <converter>

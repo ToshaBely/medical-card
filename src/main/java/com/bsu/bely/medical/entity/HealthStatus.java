@@ -1,5 +1,7 @@
 package com.bsu.bely.medical.entity;
 
+import com.bsu.bely.medical.entity.type.*;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,38 +13,46 @@ public class HealthStatus {
     private Long id;
 
     @Column(name = "overall_health")
-    private String overallHealth;
+    @Enumerated(EnumType.STRING)
+    private OverallHealthType overallHealth;
 
-    @Column(name = "conscious")
-    private String conscious;
-
-
-    @Column(name = "skin_covering")
-    private String skinCovering;
-
-    @Column(name = "liver")
-    private String liver;
-
-    @Column(name = "weight")
-    private Integer weight;
-
-    @Column(name = "growth")
-    private Integer growth;
-
-    @Column(name = "lymph_nodes")
-    private String lymphNodes;
+    @Column(name = "feeling")
+    @Enumerated(EnumType.STRING)
+    private FeelingType feeling;
 
     @Column(name = "body_type")
-    private String bodyType;
+    @Enumerated(EnumType.STRING)
+    private BodyType bodyType;
+
+    @Column(name = "skin_covering")
+    @Enumerated(EnumType.STRING)
+    private SkinType skinCovering;
+
+    @Column(name = "lymph_nodes")
+    @Enumerated(EnumType.STRING)
+    private LymphNodesType lymphNodes;
+
+    @Column(name = "temperature")
+    private Double temperature;
+
+//    @Column(name = "weight")
+//    private Double weight;
+//
+//    @Column(name = "growth")
+//    private Integer growth;
 
     @Column(name = "pulse")
     private Integer pulse;
 
+    @Column(name = "arterial_pressure")
+    private String arterialPressure;
+
     @Column(name = "breathing_rate")
     private Integer breathingRate;
 
-    @Column(name = "temperature")
-    private Double temperature;
+    @Column(name = "liver")
+    @Enumerated(EnumType.STRING)
+    private LiverType liver;
 
     @Column(name = "date")
     private Date date;
@@ -55,35 +65,35 @@ public class HealthStatus {
         return id;
     }
 
-    public Integer getWeight() {
-        return weight;
-    }
+//    public Double getWeight() {
+//        return weight;
+//    }
+//
+//    public void setWeight(Double weight) {
+//        this.weight = weight;
+//    }
+//
+//    public Integer getGrowth() {
+//        return growth;
+//    }
+//
+//    public void setGrowth(Integer growth) {
+//        this.growth = growth;
+//    }
 
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
-    public Integer getGrowth() {
-        return growth;
-    }
-
-    public void setGrowth(Integer growth) {
-        this.growth = growth;
-    }
-
-    public String getLymphNodes() {
+    public LymphNodesType getLymphNodes() {
         return lymphNodes;
     }
 
-    public void setLymphNodes(String lymphNodes) {
+    public void setLymphNodes(LymphNodesType lymphNodes) {
         this.lymphNodes = lymphNodes;
     }
 
-    public String getBodyType() {
+    public BodyType getBodyType() {
         return bodyType;
     }
 
-    public void setBodyType(String bodyType) {
+    public void setBodyType(BodyType bodyType) {
         this.bodyType = bodyType;
     }
 
@@ -127,35 +137,43 @@ public class HealthStatus {
         this.patient = patient;
     }
 
-    public String getOverallHealth() {
+    public OverallHealthType getOverallHealth() {
         return overallHealth;
     }
 
-    public void setOverallHealth(String overallHealth) {
+    public void setOverallHealth(OverallHealthType overallHealth) {
         this.overallHealth = overallHealth;
     }
 
-    public String getConscious() {
-        return conscious;
+    public FeelingType getFeeling() {
+        return feeling;
     }
 
-    public void setConscious(String conscious) {
-        this.conscious = conscious;
+    public void setFeeling(FeelingType feeling) {
+        this.feeling = feeling;
     }
 
-    public String getSkinCovering() {
+    public SkinType getSkinCovering() {
         return skinCovering;
     }
 
-    public void setSkinCovering(String skinCovering) {
+    public void setSkinCovering(SkinType skinCovering) {
         this.skinCovering = skinCovering;
     }
 
-    public String getLiver() {
+    public LiverType getLiver() {
         return liver;
     }
 
-    public void setLiver(String liver) {
+    public void setLiver(LiverType liver) {
         this.liver = liver;
+    }
+
+    public String getArterialPressure() {
+        return arterialPressure;
+    }
+
+    public void setArterialPressure(String arterialPressure) {
+        this.arterialPressure = arterialPressure;
     }
 }

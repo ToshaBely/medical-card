@@ -33,7 +33,7 @@ public class ThermalSheetDAOImpl implements ThermalSheetDAO {
     public List<ThermalSheet> getThermalSheetsByPatientId(long patientId) {
         return sessionFactory.getCurrentSession().createCriteria(ThermalSheet.class)
                 .add(Restrictions.eq("patient.id", patientId))
-                .addOrder(Order.asc("date"))
+                .addOrder(Order.desc("date"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
 }
