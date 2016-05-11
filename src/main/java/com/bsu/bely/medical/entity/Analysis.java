@@ -10,8 +10,7 @@ public class Analysis {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //TODO: create for JSON format
-    //maybe like a String
+    //TODO: create for JSON format (maybe like a String)
     @Column(name = "result")
     private String result;
 

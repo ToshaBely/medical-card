@@ -19,4 +19,10 @@ public class DoctorServiceImpl implements DoctorService {
     public List<Doctor> getAll() {
         return doctorDAO.getAll();
     }
+
+    @Override
+    @Transactional
+    public Doctor getDoctor(Long doctorId) {
+        return doctorDAO.getDoctor(doctorId);
+    }
 }

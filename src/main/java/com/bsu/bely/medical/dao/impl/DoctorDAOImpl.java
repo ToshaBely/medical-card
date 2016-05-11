@@ -20,4 +20,9 @@ public class DoctorDAOImpl implements DoctorDAO {
         return sessionFactory.getCurrentSession().createCriteria(Doctor.class)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
+
+    @Override
+    public Doctor getDoctor(Long doctorId) {
+        return (Doctor) sessionFactory.getCurrentSession().get(Doctor.class, doctorId);
+    }
 }

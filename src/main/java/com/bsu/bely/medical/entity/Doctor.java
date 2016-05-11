@@ -1,6 +1,7 @@
 package com.bsu.bely.medical.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -33,6 +34,27 @@ public class Doctor {
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     private Set<Analysis> analysisSet;
+
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Doctor)) {
+            return false;
+        }
+        Doctor d = (Doctor) obj;
+        return Objects.equals(this.id, d.id);
+    }
 
     public Long getId() {
         return id;

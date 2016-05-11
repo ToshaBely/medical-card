@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DoctorService {
     List<Doctor> getAll();
+    Doctor getDoctor(Long doctorId);
 }

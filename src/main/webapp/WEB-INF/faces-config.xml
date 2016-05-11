@@ -51,11 +51,22 @@
             <redirect/>
         </navigation-case>
 
+        <navigation-case>
+            <from-outcome>analysis</from-outcome>
+            <to-view-id>/page/analysis.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
     </navigation-rule>
 
     <converter>
         <converter-id>patientConverter</converter-id>
         <converter-class>com.bsu.bely.medical.converter.PatientConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>doctorConverter</converter-id>
+        <converter-class>com.bsu.bely.medical.converter.DoctorConverter</converter-class>
     </converter>
   
 </faces-config>

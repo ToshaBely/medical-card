@@ -7,5 +7,6 @@
     <import resource="dispatcher-servlet.xml"/>
 
     <bean id="patientService" class="com.bsu.bely.medical.service.impl.PatientServiceImpl"/>
+    <bean id="doctorService" class="com.bsu.bely.medical.service.impl.DoctorServiceImpl"/>
 
 </beans>
