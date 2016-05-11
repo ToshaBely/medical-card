@@ -36,29 +36,35 @@
                 </p:column>
             </p:dataTable>
 
+            <p:growl id="growl" showDetail="false" sticky="false"/>
+
             <p:dialog header="New Patient" widgetVar="createNewPatient" resizable="false"
                       closable="true" modal="true" dynamic="true">
                 <h:form id="patientForm">
                     <p:panelGrid columns="2">
                         <h:outputText value="First name: "/>
-                        <p:inputText value="#{patientBean.createdPatient.firstName}"/>
+                        <p:inputText value="#{patientBean.createdPatient.firstName}"
+                                     required="true" requiredMessage="First name shouldn`t be empty."/>
 
                         <h:outputText value="Last name: "/>
-                        <p:inputText value="#{patientBean.createdPatient.lastName}"/>
+                        <p:inputText value="#{patientBean.createdPatient.lastName}"
+                                     required="true" requiredMessage="Last name shouldn`t be empty."/>
 
                         <h:outputText value="Passport: "/>
-                        <p:inputText value="#{patientBean.createdPatient.passport}"/>
+                        <p:inputMask mask="aa9999999" value="#{patientBean.createdPatient.passport}"
+                                     required="true" requiredMessage="Passport shouldn`t be empty."/>
 
                         <h:outputText value="Telephone number: "/>
-                        <p:inputText value="#{patientBean.createdPatient.telephoneNumber}"/>
+                        <p:inputMask mask="+999(99)999-99-99" value="#{patientBean.createdPatient.telephoneNumber}"/>
 
                         <h:outputText value="Birthday: "/>
                         <p:calendar value="#{patientBean.createdPatient.birthDay}"
-                                    title="MM/dd/yyyy" pattern="MM/dd/yyyy" showOn="button"/>
+                                    title="MM/dd/yyyy" pattern="MM/dd/yyyy" showOn="button"
+                                    required="true" requiredMessage="Birthday name shouldn`t be empty."/>
                     </p:panelGrid>
 
                     <p:commandButton value="Save" actionListener="#{patientBean.saveCreatedPatient}"
-                                     update="patientForm, patientTable" oncomplete="PF('createNewPatient').hide()"/>
+                                     update="growl, patientForm, patientTable" oncomplete="if (!args.validationFailed) PF('createNewPatient').hide()"/>
                 </h:form>
             </p:dialog>
 

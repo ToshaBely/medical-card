@@ -1,7 +1,7 @@
 package com.bsu.bely.medical.dao.impl;
 
-import com.bsu.bely.medical.dao.HealthStatusDAO;
-import com.bsu.bely.medical.entity.HealthStatus;
+import com.bsu.bely.medical.dao.MedicalJournalDAO;
+import com.bsu.bely.medical.entity.MedicalJournal;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -12,26 +12,27 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class HealthStatusDAOImpl implements HealthStatusDAO {
+public class MedicalJournalDAOImpl implements MedicalJournalDAO {
+
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public void add(HealthStatus healthStatus) {
-        sessionFactory.getCurrentSession().persist(healthStatus);
+    public void add(MedicalJournal medicalJournal) {
+        sessionFactory.getCurrentSession().persist(medicalJournal);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<HealthStatus> getAll() {
-        return sessionFactory.getCurrentSession().createCriteria(HealthStatus.class)
+    public List<MedicalJournal> getAll() {
+        return sessionFactory.getCurrentSession().createCriteria(MedicalJournal.class)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<HealthStatus> getHealthStatusByPatientId(long patientId) {
-        return sessionFactory.getCurrentSession().createCriteria(HealthStatus.class)
+    public List<MedicalJournal> getAllByPatientId(Long patientId) {
+        return sessionFactory.getCurrentSession().createCriteria(MedicalJournal.class)
                 .add(Restrictions.eq("patient.id", patientId))
                 .addOrder(Order.desc("date"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();

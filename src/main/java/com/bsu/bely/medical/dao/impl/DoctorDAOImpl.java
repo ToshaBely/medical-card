@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public class DoctorDAOImpl implements DoctorDAO {
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @SuppressWarnings("unchecked")
     @Override

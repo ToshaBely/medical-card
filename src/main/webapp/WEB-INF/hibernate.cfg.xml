@@ -7,8 +7,11 @@
     <session-factory>
 
         <!--&lt;!&ndash; Annotated entity classes &ndash;&gt;-->
-        <mapping class="com.bsu.bely.medical.entity.Patient"/>
+        <mapping class="com.bsu.bely.medical.entity.Analysis"/>
+        <mapping class="com.bsu.bely.medical.entity.Doctor"/>
         <mapping class="com.bsu.bely.medical.entity.HealthStatus"/>
+        <mapping class="com.bsu.bely.medical.entity.HospitalStanding"/>
+        <mapping class="com.bsu.bely.medical.entity.Patient"/>
         <mapping class="com.bsu.bely.medical.entity.ThermalSheet"/>
 
     </session-factory>

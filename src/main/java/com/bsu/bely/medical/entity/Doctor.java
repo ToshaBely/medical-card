@@ -1,6 +1,7 @@
 package com.bsu.bely.medical.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "doctor")
@@ -23,6 +24,15 @@ public class Doctor {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "departmentHead", fetch = FetchType.LAZY)
+    private Set<HospitalStanding> hospitalStandingSetAsDepartmentHead;
+
+    @OneToMany(mappedBy = "therapist", fetch = FetchType.LAZY)
+    private Set<HospitalStanding> hospitalStandingSetAsTherapist;
+
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+    private Set<Analysis> analysisSet;
 
     public Long getId() {
         return id;
@@ -66,5 +76,29 @@ public class Doctor {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<HospitalStanding> getHospitalStandingSetAsDepartmentHead() {
+        return hospitalStandingSetAsDepartmentHead;
+    }
+
+    public void setHospitalStandingSetAsDepartmentHead(Set<HospitalStanding> hospitalStandingSetAsDepartmentHead) {
+        this.hospitalStandingSetAsDepartmentHead = hospitalStandingSetAsDepartmentHead;
+    }
+
+    public Set<HospitalStanding> getHospitalStandingSetAsTherapist() {
+        return hospitalStandingSetAsTherapist;
+    }
+
+    public void setHospitalStandingSetAsTherapist(Set<HospitalStanding> hospitalStandingSetAsTherapist) {
+        this.hospitalStandingSetAsTherapist = hospitalStandingSetAsTherapist;
+    }
+
+    public Set<Analysis> getAnalysisSet() {
+        return analysisSet;
+    }
+
+    public void setAnalysisSet(Set<Analysis> analysisSet) {
+        this.analysisSet = analysisSet;
     }
 }

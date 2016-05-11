@@ -35,12 +35,6 @@ public class HealthStatus {
     @Column(name = "temperature")
     private Double temperature;
 
-//    @Column(name = "weight")
-//    private Double weight;
-//
-//    @Column(name = "growth")
-//    private Integer growth;
-
     @Column(name = "pulse")
     private Integer pulse;
 
@@ -64,22 +58,6 @@ public class HealthStatus {
     public Long getId() {
         return id;
     }
-
-//    public Double getWeight() {
-//        return weight;
-//    }
-//
-//    public void setWeight(Double weight) {
-//        this.weight = weight;
-//    }
-//
-//    public Integer getGrowth() {
-//        return growth;
-//    }
-//
-//    public void setGrowth(Integer growth) {
-//        this.growth = growth;
-//    }
 
     public LymphNodesType getLymphNodes() {
         return lymphNodes;

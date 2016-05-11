@@ -33,6 +33,12 @@ public class Patient {
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private Set<ThermalSheet> thermalSheets;
 
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private Set<HospitalStanding> hospitalStandingSet;
+
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private Set<Analysis> analysisSet;
+
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
@@ -112,5 +118,21 @@ public class Patient {
 
     public void setThermalSheets(Set<ThermalSheet> thermalSheets) {
         this.thermalSheets = thermalSheets;
+    }
+
+    public Set<HospitalStanding> getHospitalStandingSet() {
+        return hospitalStandingSet;
+    }
+
+    public void setHospitalStandingSet(Set<HospitalStanding> hospitalStandingSet) {
+        this.hospitalStandingSet = hospitalStandingSet;
+    }
+
+    public Set<Analysis> getAnalysisSet() {
+        return analysisSet;
+    }
+
+    public void setAnalysisSet(Set<Analysis> analysisSet) {
+        this.analysisSet = analysisSet;
     }
 }

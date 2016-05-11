@@ -1,7 +1,7 @@
 package com.bsu.bely.medical.dao.impl;
 
-import com.bsu.bely.medical.dao.ThermalSheetDAO;
-import com.bsu.bely.medical.entity.ThermalSheet;
+import com.bsu.bely.medical.dao.AnalysisDAO;
+import com.bsu.bely.medical.entity.Analysis;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -12,26 +12,26 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ThermalSheetDAOImpl implements ThermalSheetDAO {
+public class AnalysisDAOImpl implements AnalysisDAO {
+
     @Autowired
     private SessionFactory sessionFactory;
 
-    @SuppressWarnings("unchecked")
     @Override
-    public List<ThermalSheet> getAll() {
-        return sessionFactory.getCurrentSession().createCriteria(ThermalSheet.class)
-                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-    }
-
-    @Override
-    public void add(ThermalSheet thermalSheet) {
-        sessionFactory.getCurrentSession().persist(thermalSheet);
+    public void add(Analysis analysis) {
+        sessionFactory.getCurrentSession().persist(analysis);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<ThermalSheet> getThermalSheetsByPatientId(long patientId) {
-        return sessionFactory.getCurrentSession().createCriteria(ThermalSheet.class)
+    public List<Analysis> getAll() {
+        return sessionFactory.getCurrentSession().createCriteria(Analysis.class).list();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Analysis> getAllByPatientId(Long patientId) {
+        return sessionFactory.getCurrentSession().createCriteria(Analysis.class)
                 .add(Restrictions.eq("patient.id", patientId))
                 .addOrder(Order.desc("date"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
