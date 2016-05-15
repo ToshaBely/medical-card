@@ -26,6 +26,8 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="WEB-INF/jdbc.properties"/>
     </bean>

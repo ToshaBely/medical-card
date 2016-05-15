@@ -4,6 +4,7 @@ import com.bsu.bely.medical.dao.DoctorDAO;
 import com.bsu.bely.medical.entity.Doctor;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,5 +25,13 @@ public class DoctorDAOImpl implements DoctorDAO {
     @Override
     public Doctor getDoctor(Long doctorId) {
         return (Doctor) sessionFactory.getCurrentSession().get(Doctor.class, doctorId);
+    }
+
+    @Override
+    public Doctor getDoctorByLogin(String userName) {
+        return (Doctor) sessionFactory.getCurrentSession().createCriteria(Doctor.class)
+                .add(Restrictions.eq("login", userName))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .uniqueResult();
     }
 }

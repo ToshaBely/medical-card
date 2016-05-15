@@ -35,6 +35,12 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     private Set<Analysis> analysisSet;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "doctor_role",
+            joinColumns = {@JoinColumn(name = "doctor_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private Set<Role> roles;
+
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
@@ -122,5 +128,13 @@ public class Doctor {
 
     public void setAnalysisSet(Set<Analysis> analysisSet) {
         this.analysisSet = analysisSet;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

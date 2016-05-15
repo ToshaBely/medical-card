@@ -7,4 +7,5 @@ import java.util.List;
 public interface DoctorDAO {
     List<Doctor> getAll();
     Doctor getDoctor(Long doctorId);
+    Doctor getDoctorByLogin(String userName);
 }
