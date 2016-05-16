@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -30,9 +31,11 @@ public class ThermalSheetDAOImpl implements ThermalSheetDAO {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<ThermalSheet> getThermalSheetsByPatientId(long patientId) {
+    public List<ThermalSheet> getThermalSheetsByPatientIdInDates(long patientId, Date startDate, Date endDate) {
         return sessionFactory.getCurrentSession().createCriteria(ThermalSheet.class)
                 .add(Restrictions.eq("patient.id", patientId))
+                .add(Restrictions.ge("date", startDate))
+                .add(Restrictions.le("date", endDate))
                 .addOrder(Order.desc("date"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }

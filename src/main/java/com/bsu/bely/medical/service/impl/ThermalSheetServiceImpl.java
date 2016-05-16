@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,7 +29,7 @@ public class ThermalSheetServiceImpl implements ThermalSheetService {
 
     @Override
     @Transactional
-    public List<ThermalSheet> getThermalSheetsByPatientId(long patientId) {
-        return thermalSheetDAO.getThermalSheetsByPatientId(patientId);
+    public List<ThermalSheet> getThermalSheetsByPatientIdInDates(long patientId, Date startDate, Date endDate) {
+        return thermalSheetDAO.getThermalSheetsByPatientIdInDates(patientId, startDate, endDate);
     }
 }

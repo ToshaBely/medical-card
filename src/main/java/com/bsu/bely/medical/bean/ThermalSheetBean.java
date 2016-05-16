@@ -4,6 +4,7 @@ import com.bsu.bely.medical.entity.Patient;
 import com.bsu.bely.medical.entity.ThermalSheet;
 import com.bsu.bely.medical.service.PatientService;
 import com.bsu.bely.medical.service.ThermalSheetService;
+import com.bsu.bely.medical.utils.DateUtil;
 import org.primefaces.model.chart.*;
 
 import javax.annotation.PostConstruct;
@@ -35,6 +36,9 @@ public class ThermalSheetBean {
     private List<Patient> patientList;
     private List<ThermalSheet> thermalSheetList;
 
+    private Date startDate;
+    private Date endDate;
+
     private LineChartModel lineModel;
     private boolean showLineModel = false;
 
@@ -44,11 +48,14 @@ public class ThermalSheetBean {
         patientList = patientService.getAll();
         thermalSheetList = new ArrayList<>();
         createLineModel();
+        endDate = DateUtil.getEndOfDay(new Date());
+        startDate = DateUtil.getBeginOfDay(DateUtil.addMonth(endDate, -1));
+
     }
 
     public void applyFilter() {
         if (selectedPatient != null) {
-            thermalSheetList = thermalSheetService.getThermalSheetsByPatientId(selectedPatient.getId());
+            thermalSheetList = thermalSheetService.getThermalSheetsByPatientIdInDates(selectedPatient.getId(), startDate, endDate);
             addSeriesToLineChart();
             showLineModel = true;
         }
@@ -86,6 +93,7 @@ public class ThermalSheetBean {
         for (ThermalSheet thermal : thermalSheetList) {
             series.set(thermal.getDate().getTime(), thermal.getTemperature());
         }
+        lineModel.clear();
         lineModel.addSeries(series);
     }
 
@@ -139,5 +147,21 @@ public class ThermalSheetBean {
 
     public boolean isShowLineModel() {
         return showLineModel;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

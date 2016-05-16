@@ -9,25 +9,35 @@
 
     <ui:composition template="/template/main.xhtml">
         <ui:define name="body">
-            <h:form id="filterForm">
-                <p:fieldset>
-                    <p:commandButton value="Add" oncomplete="PF('createNewRecord').show()"/>
+            <p:panel header="Filter" toggleable="true" style="margin-bottom: 10px;">
+                <h:panelGroup>
+                    <h:form id="filterForm">
+                        <h:panelGrid columns="2" style="margin-bottom: 5px;">
+                            <h:outputText value="Patient: " style="margin-right: 10px;"/>
+                            <p:selectOneMenu value="#{thermalSheetBean.selectedPatient}" converter="patientConverter"
+                                             style="vertical-align: middle; width: 200px; margin-right: 10px;">
+                                <f:selectItem itemLabel="Select" itemDisabled="true"/>
+                                <f:selectItems value="#{thermalSheetBean.patientList}" var="patient"
+                                               itemLabel="#{patient.fullName}" itemValue="#{patient}"/>
+                            </p:selectOneMenu>
 
-                    <p:commandButton action="#{thermalSheetBean.applyFilter}" value="Apply filter"
-                                     style="float: right;" update="thermalList, thermalChartPanel"/>
+                            <h:outputText value="Start date: "/>
+                            <p:calendar value="#{thermalSheetBean.startDate}"  pattern="MM/dd/yyyy HH:mm:ss"/>
 
-                    <p:selectOneMenu value="#{thermalSheetBean.selectedPatient}" converter="patientConverter"
-                                     style="vertical-align: middle; width: 200px; float: right; margin-right: 10px;">
-                        <f:selectItem itemLabel="Select" itemDisabled="true"/>
-                        <f:selectItems value="#{thermalSheetBean.patientList}" var="patient"
-                                       itemLabel="#{patient.fullName}" itemValue="#{patient}"/>
-                    </p:selectOneMenu>
+                            <h:outputText value="End date: "/>
+                            <p:calendar value="#{thermalSheetBean.endDate}"  pattern="MM/dd/yyyy HH:mm:ss"/>
+                        </h:panelGrid>
 
-                    <h:outputText value="Patient: " style="margin-right: 10px; float: right;"/>
-                </p:fieldset>
-            </h:form>
+                        <p:commandButton action="#{thermalSheetBean.applyFilter}" value="Apply filter"
+                                         update="thermalList, thermalChartPanel" icon="button-apply-class"/>
+                    </h:form>
+                </h:panelGroup>
 
-            <p:dataTable id="thermalList" style="margin-top: 5px; max-height: 400px; overflow-y: scroll;"
+            </p:panel>
+
+            <p:commandButton value="Add new record" icon="button-add-class" oncomplete="PF('createNewRecord').show()"/>
+
+            <p:dataTable id="thermalList" style="max-height: 400px; overflow-y: scroll;"
                          var="thermal" value="#{thermalSheetBean.thermalSheetList}">
                 <f:facet name="header">
                     #{thermalSheetBean.selectedPatient.fullName}
