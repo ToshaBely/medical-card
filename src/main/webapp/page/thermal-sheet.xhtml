@@ -42,6 +42,7 @@
                 <f:facet name="header">
                     #{thermalSheetBean.selectedPatient.fullName}
                 </f:facet>
+
                 <p:column headerText="Date">
                     <h:outputText value="#{thermal.date}">
                         <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
@@ -50,6 +51,11 @@
 
                 <p:column headerText="Temperature">
                     <h:outputText value="#{thermal.temperature}"/>
+                </p:column>
+
+                <p:column style="width: 70px; ">
+                    <p:commandButton value="edit" actionListener="#{thermalSheetBean.prepareEditedThermal(thermal)}"
+                                     update="thermalForm" oncomplete="PF('createNewRecord').show()"/>
                 </p:column>
             </p:dataTable>
 
@@ -62,30 +68,42 @@
             <p:growl id="growl" showDetail="false" sticky="false"/>
 
             <p:dialog header="New record" widgetVar="createNewRecord" resizable="false"
-                      closable="true" modal="true" dynamic="true">
+                      closable="false" modal="true" dynamic="true">
                 <h:form id="thermalForm">
                     <p:panelGrid columns="2">
                         <h:outputText value="Patient: "/>
                         <p:selectOneMenu value="#{thermalSheetBean.thermalSheet.patient}" converter="patientConverter"
                                          style="vertical-align: middle; width: 200px"
+                                         disabled="#{thermalSheetBean.isEditing}"
                                          required="true" requiredMessage="Patient mustn`t be empty">
                             <f:selectItem itemLabel="Select" itemDisabled="true"/>
                             <f:selectItems value="#{thermalSheetBean.patientList}" var="patient"
                                            itemLabel="#{patient.fullName}" itemValue="#{patient}"/>
                         </p:selectOneMenu>
 
-                        <h:outputText value="Date: "/>
-                        <p:calendar value="#{thermalSheetBean.thermalSheet.date}"  pattern="MM/dd/yyyy HH:mm:ss"
-                                required="true" requiredMessage="Date mustn`t be empty"/>
-
                         <h:outputText value="Temperature: "/>
                         <p:inputMask mask="99.9" value="#{thermalSheetBean.thermalSheet.temperature}"
                                      validator="#{thermalSheetBean.temperatureValidator}"
                                      required="true" requiredMessage="Temperature field must contain some info"/>
+
+                        <h:outputText value="Date: "/>
+                        <p:calendar value="#{thermalSheetBean.thermalSheet.date}"  pattern="MM/dd/yyyy HH:mm:ss"
+                                required="true" requiredMessage="Date mustn`t be empty"/>
                     </p:panelGrid>
 
                     <p:commandButton value="Save" actionListener="#{thermalSheetBean.saveCreatedThermal}"
-                                     update="thermalList, thermalChartPanel, growl, thermalForm" oncomplete="if (!args.validationFailed) PF('createNewRecord').hide()"/>
+                                     rendered="#{!thermalSheetBean.isEditing}" icon="button-accept-class"
+                                     update="thermalList, thermalChartPanel, growl, thermalForm"
+                                     oncomplete="if (!args.validationFailed) PF('createNewRecord').hide()"/>
+
+                    <p:commandButton value="Edit" actionListener="#{thermalSheetBean.saveEditedThermal}"
+                                     rendered="#{thermalSheetBean.isEditing}" icon="button-accept-class"
+                                     update="thermalList, thermalChartPanel, growl, thermalForm"
+                                     oncomplete="if (!args.validationFailed) PF('createNewRecord').hide()"/>
+
+                    <p:commandButton value="Cancel" actionListener="#{thermalSheetBean.cancelEditAdd}"
+                                     icon="button-cross-class" update="thermalForm"
+                                     oncomplete="PF('createNewRecord').hide()"/>
                 </h:form>
             </p:dialog>
 

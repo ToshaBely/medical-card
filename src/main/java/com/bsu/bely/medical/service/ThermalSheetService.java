@@ -9,4 +9,5 @@ public interface ThermalSheetService {
     List<ThermalSheet> getAll();
     void add(ThermalSheet thermalSheet);
     List<ThermalSheet> getThermalSheetsByPatientIdInDates(long patientId, Date startDate, Date endDate);
+    void update(ThermalSheet thermalSheet);
 }

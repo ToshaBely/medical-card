@@ -32,4 +32,10 @@ public class ThermalSheetServiceImpl implements ThermalSheetService {
     public List<ThermalSheet> getThermalSheetsByPatientIdInDates(long patientId, Date startDate, Date endDate) {
         return thermalSheetDAO.getThermalSheetsByPatientIdInDates(patientId, startDate, endDate);
     }
+
+    @Override
+    @Transactional
+    public void update(ThermalSheet thermalSheet) {
+        thermalSheetDAO.update(thermalSheet);
+    }
 }

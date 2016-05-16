@@ -39,4 +39,9 @@ public class ThermalSheetDAOImpl implements ThermalSheetDAO {
                 .addOrder(Order.desc("date"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
+
+    @Override
+    public void update(ThermalSheet thermalSheet) {
+        sessionFactory.getCurrentSession().merge(thermalSheet);
+    }
 }

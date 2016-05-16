@@ -36,6 +36,8 @@ public class ThermalSheetBean {
     private List<Patient> patientList;
     private List<ThermalSheet> thermalSheetList;
 
+    private boolean isEditing = false;
+
     private Date startDate;
     private Date endDate;
 
@@ -65,6 +67,25 @@ public class ThermalSheetBean {
         thermalSheetService.add(thermalSheet);
         thermalSheet = new ThermalSheet();
         applyFilter();
+    }
+
+    public void prepareEditedThermal(ThermalSheet editSheet) {
+        thermalSheet = editSheet;
+        isEditing = true;
+    }
+
+    public void saveEditedThermal() {
+        thermalSheetService.update(thermalSheet);
+        thermalSheet = new ThermalSheet();
+        applyFilter();
+        isEditing = false;
+    }
+
+    public void cancelEditAdd() {
+        if (isEditing) {
+            thermalSheet = new ThermalSheet();
+            isEditing = false;
+        }
     }
 
     public void temperatureValidator(FacesContext context, UIComponent component, Object value) {
@@ -163,5 +184,9 @@ public class ThermalSheetBean {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public boolean getIsEditing() {
+        return isEditing;
     }
 }
