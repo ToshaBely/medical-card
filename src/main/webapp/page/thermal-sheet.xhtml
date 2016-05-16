@@ -14,7 +14,7 @@
                     <p:commandButton value="Add" oncomplete="PF('createNewRecord').show()"/>
 
                     <p:commandButton action="#{thermalSheetBean.applyFilter}" value="Apply filter"
-                                     style="float: right;" update="thermalList"/>
+                                     style="float: right;" update="thermalList, thermalChartPanel"/>
 
                     <p:selectOneMenu value="#{thermalSheetBean.selectedPatient}" converter="patientConverter"
                                      style="vertical-align: middle; width: 200px; float: right; margin-right: 10px;">
@@ -27,7 +27,7 @@
                 </p:fieldset>
             </h:form>
 
-            <p:dataTable id="thermalList" style="margin-top: 5px;"
+            <p:dataTable id="thermalList" style="margin-top: 5px; max-height: 400px; overflow-y: scroll;"
                          var="thermal" value="#{thermalSheetBean.thermalSheetList}">
                 <f:facet name="header">
                     #{thermalSheetBean.selectedPatient.fullName}
@@ -42,6 +42,12 @@
                     <h:outputText value="#{thermal.temperature}"/>
                 </p:column>
             </p:dataTable>
+
+            <p:panel id="thermalChartPanel" header="Temperature chart" toggleable="true" style="margin-top: 15px;">
+                <h:outputText value="Select patient" rendered="#{!thermalSheetBean.showLineModel}"/>
+                <p:chart rendered="#{thermalSheetBean.showLineModel}" type="line" model="#{thermalSheetBean.lineModel}"
+                         style="height: 450px; text-align: center;"/>
+            </p:panel>
 
             <p:growl id="growl" showDetail="false" sticky="false"/>
 
@@ -69,7 +75,7 @@
                     </p:panelGrid>
 
                     <p:commandButton value="Save" actionListener="#{thermalSheetBean.saveCreatedThermal}"
-                                     update="thermalList, growl, thermalForm" oncomplete="if (!args.validationFailed) PF('createNewRecord').hide()"/>
+                                     update="thermalList, thermalChartPanel, growl, thermalForm" oncomplete="if (!args.validationFailed) PF('createNewRecord').hide()"/>
                 </h:form>
             </p:dialog>
 
