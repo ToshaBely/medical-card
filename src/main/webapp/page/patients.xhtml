@@ -9,32 +9,91 @@
 
     <ui:composition template="/template/main.xhtml">
         <ui:define name="body">
-            <p:fieldset style="margin-bottom: 10px;">
-                <p:commandButton value="Add" oncomplete="PF('createNewPatient').show()"/>
-            </p:fieldset>
-            <p:dataTable id="patientTable" var="patient" value="#{patientBean.patientList}">
-                <p:column headerText="First Name">
-                    <h:outputText value="#{patient.firstName}"/>
-                </p:column>
+            <p:tabView>
+                <p:tab title="Patients">
+                    <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 2px;"
+                                     oncomplete="PF('createNewPatient').show()"/>
 
-                <p:column headerText="Last Name">
-                    <h:outputText value="#{patient.lastName}"/>
-                </p:column>
+                    <p:dataTable id="patientTable" var="patient" value="#{patientBean.patientList}">
+                        <p:column headerText="First Name">
+                            <h:outputText value="#{patient.firstName}"/>
+                        </p:column>
 
-                <p:column headerText="Birthday">
-                    <h:outputText value="#{patient.birthDay}">
-                        <f:convertDateTime pattern="yyyy-MM-dd"/>
-                    </h:outputText>
-                </p:column>
+                        <p:column headerText="Last Name">
+                            <h:outputText value="#{patient.lastName}"/>
+                        </p:column>
 
-                <p:column headerText="Passport">
-                    <h:outputText value="#{patient.passport}"/>
-                </p:column>
+                        <p:column headerText="Birthday">
+                            <h:outputText value="#{patient.birthDay}">
+                                <f:convertDateTime pattern="yyyy-MM-dd"/>
+                            </h:outputText>
+                        </p:column>
 
-                <p:column headerText="Telephone">
-                    <h:outputText value="#{patient.telephoneNumber}"/>
-                </p:column>
-            </p:dataTable>
+                        <p:column headerText="Passport">
+                            <h:outputText value="#{patient.passport}"/>
+                        </p:column>
+
+                        <p:column headerText="Telephone">
+                            <h:outputText value="#{patient.telephoneNumber}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Hospital">
+                    <!-- TODO: add-->
+                    <p:dataTable id="hospitalTable" value="#{patientBean.hospitalList}" var="hospital">
+                        <p:column style="width:16px">
+                            <p:rowToggler />
+                        </p:column>
+
+                        <p:column headerText="Patient">
+                            <h:outputText value="#{hospital.patient.fullName}"/>
+                        </p:column>
+
+                        <p:column headerText="Entering date">
+                            <h:outputText value="#{hospital.enteringDate}">
+                                <f:convertDateTime pattern="yyyy-MM-dd"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Diagnose">
+                            <h:outputText value="#{hospital.diagnose}"/>
+                        </p:column>
+
+                        <p:column headerText="Discharge date">
+                            <h:outputText value="#{hospital.dischargeDate}">
+                                <f:convertDateTime pattern="yyyy-MM-dd"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Therapist">
+                            <h:outputText value="#{hospital.therapist.fullName}"/>
+                        </p:column>
+
+                        <p:rowExpansion>
+                            <p:panelGrid style="margin: 3px;">
+                                <f:facet name="header">
+                                    <p:row>
+                                        <p:column>Survey plan</p:column>
+                                        <p:column>Treatment plan</p:column>
+                                    </p:row>
+                                </f:facet>
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText value="#{hospital.surveyPlan}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <h:outputText value="#{hospital.treatmentPlan}"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:rowExpansion>
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Medical journal">
+                    <h:outputText value="Comming soon..."/>
+                </p:tab>
+            </p:tabView>
 
             <p:growl id="growl" showDetail="false" sticky="false"/>
 

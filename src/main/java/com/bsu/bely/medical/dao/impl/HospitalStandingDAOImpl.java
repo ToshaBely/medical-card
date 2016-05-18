@@ -37,4 +37,15 @@ public class HospitalStandingDAOImpl implements HospitalStandingDAO {
                 .addOrder(Order.asc("enteringDate"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<HospitalStanding> getAllByDoctorId(Long doctorId) {
+        return sessionFactory.getCurrentSession().createCriteria(HospitalStanding.class)
+                .add(Restrictions.or(
+                        Restrictions.eq("departmentHead.id", doctorId),
+                        Restrictions.eq("therapist.id", doctorId)))
+                .addOrder(Order.asc("enteringDate"))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+    }
 }

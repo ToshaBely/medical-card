@@ -8,4 +8,5 @@ public interface HospitalStandingService {
     void add (HospitalStanding hospitalStanding);
     List<HospitalStanding> getAll();
     List<HospitalStanding> getAllByPatientId(Long patientId);
+    List<HospitalStanding> getAllByDoctorId(Long doctorId);
 }

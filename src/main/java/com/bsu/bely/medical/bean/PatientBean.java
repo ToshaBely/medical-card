@@ -1,6 +1,8 @@
 package com.bsu.bely.medical.bean;
 
+import com.bsu.bely.medical.entity.HospitalStanding;
 import com.bsu.bely.medical.entity.Patient;
+import com.bsu.bely.medical.service.HospitalStandingService;
 import com.bsu.bely.medical.service.PatientService;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +19,11 @@ public class PatientBean {
     @ManagedProperty("#{patientServiceImpl}")
     private PatientService patientService;
 
+    @ManagedProperty("#{hospitalStandingServiceImpl}")
+    private HospitalStandingService hospitalService;
+
     private List<Patient> patientList;
+    private List<HospitalStanding> hospitalList;
 
     private Patient createdPatient;
 
@@ -25,6 +31,7 @@ public class PatientBean {
     private void init() {
         patientList = patientService.getAll();
         createdPatient = new Patient();
+        hospitalList = hospitalService.getAll();
     }
 
     public void saveCreatedPatient() {
@@ -47,5 +54,13 @@ public class PatientBean {
 
     public void setCreatedPatient(Patient createdPatient) {
         this.createdPatient = createdPatient;
+    }
+
+    public void setHospitalService(HospitalStandingService hospitalService) {
+        this.hospitalService = hospitalService;
+    }
+
+    public List<HospitalStanding> getHospitalList() {
+        return hospitalList;
     }
 }

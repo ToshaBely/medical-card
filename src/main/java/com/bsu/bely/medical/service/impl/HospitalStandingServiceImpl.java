@@ -32,4 +32,10 @@ public class HospitalStandingServiceImpl implements HospitalStandingService {
     public List<HospitalStanding> getAllByPatientId(Long patientId) {
         return hospitalStandingDAO.getAllByPatientId(patientId);
     }
+
+    @Override
+    @Transactional
+    public List<HospitalStanding> getAllByDoctorId(Long doctorId) {
+        return hospitalStandingDAO.getAllByDoctorId(doctorId);
+    }
 }

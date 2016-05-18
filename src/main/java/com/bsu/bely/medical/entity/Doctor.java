@@ -41,6 +41,9 @@ public class Doctor {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+    private Set<MedicalJournal> medicalJournalSet;
+
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
@@ -136,5 +139,13 @@ public class Doctor {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<MedicalJournal> getMedicalJournalSet() {
+        return medicalJournalSet;
+    }
+
+    public void setMedicalJournalSet(Set<MedicalJournal> medicalJournalSet) {
+        this.medicalJournalSet = medicalJournalSet;
     }
 }

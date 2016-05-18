@@ -11,6 +11,7 @@
         <mapping class="com.bsu.bely.medical.entity.Doctor"/>
         <mapping class="com.bsu.bely.medical.entity.HealthStatus"/>
         <mapping class="com.bsu.bely.medical.entity.HospitalStanding"/>
+        <mapping class="com.bsu.bely.medical.entity.MedicalJournal"/>
         <mapping class="com.bsu.bely.medical.entity.Patient"/>
         <mapping class="com.bsu.bely.medical.entity.Role"/>
         <mapping class="com.bsu.bely.medical.entity.ThermalSheet"/>

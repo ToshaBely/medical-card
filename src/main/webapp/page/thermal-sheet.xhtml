@@ -29,13 +29,14 @@
                         </h:panelGrid>
 
                         <p:commandButton action="#{thermalSheetBean.applyFilter}" value="Apply filter"
-                                         update="thermalList, thermalChartPanel" icon="button-apply-class"/>
+                                         update="thermalList, thermalChartPanel" icon="fa fa-refresh"/>
                     </h:form>
                 </h:panelGroup>
 
             </p:panel>
 
-            <p:commandButton value="Add new record" icon="button-add-class" oncomplete="PF('createNewRecord').show()"/>
+            <p:commandButton value="Add new record" icon="fa fa-plus-circle" style="margin-bottom: 2px;"
+                             oncomplete="PF('createNewRecord').show()"/>
 
             <p:dataTable id="thermalList" style="max-height: 400px; overflow-y: scroll;"
                          var="thermal" value="#{thermalSheetBean.thermalSheetList}">
@@ -53,8 +54,8 @@
                     <h:outputText value="#{thermal.temperature}"/>
                 </p:column>
 
-                <p:column style="width: 70px; ">
-                    <p:commandButton value="edit" actionListener="#{thermalSheetBean.prepareEditedThermal(thermal)}"
+                <p:column style="width: 40px; ">
+                    <p:commandButton icon="fa fa-edit" label="edit" actionListener="#{thermalSheetBean.prepareEditedThermal(thermal)}"
                                      update="thermalForm" oncomplete="PF('createNewRecord').show()"/>
                 </p:column>
             </p:dataTable>
@@ -92,17 +93,17 @@
                     </p:panelGrid>
 
                     <p:commandButton value="Save" actionListener="#{thermalSheetBean.saveCreatedThermal}"
-                                     rendered="#{!thermalSheetBean.isEditing}" icon="button-accept-class"
+                                     rendered="#{!thermalSheetBean.isEditing}" icon="fa fa-check"
                                      update="thermalList, thermalChartPanel, growl, thermalForm"
                                      oncomplete="if (!args.validationFailed) PF('createNewRecord').hide()"/>
 
                     <p:commandButton value="Edit" actionListener="#{thermalSheetBean.saveEditedThermal}"
-                                     rendered="#{thermalSheetBean.isEditing}" icon="button-accept-class"
+                                     rendered="#{thermalSheetBean.isEditing}" icon="fa fa-check"
                                      update="thermalList, thermalChartPanel, growl, thermalForm"
                                      oncomplete="if (!args.validationFailed) PF('createNewRecord').hide()"/>
 
-                    <p:commandButton value="Cancel" actionListener="#{thermalSheetBean.cancelEditAdd}"
-                                     icon="button-cross-class" update="thermalForm"
+                    <p:commandButton value="Cancel"  actionListener="#{thermalSheetBean.cancelEditAdd}"
+                                     icon="fa fa-close" update="thermalForm"
                                      oncomplete="PF('createNewRecord').hide()"/>
                 </h:form>
             </p:dialog>

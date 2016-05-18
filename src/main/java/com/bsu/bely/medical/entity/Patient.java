@@ -39,6 +39,9 @@ public class Patient {
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private Set<Analysis> analysisSet;
 
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private Set<MedicalJournal> medicalJournalSet;
+
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
@@ -134,5 +137,13 @@ public class Patient {
 
     public void setAnalysisSet(Set<Analysis> analysisSet) {
         this.analysisSet = analysisSet;
+    }
+
+    public Set<MedicalJournal> getMedicalJournalSet() {
+        return medicalJournalSet;
+    }
+
+    public void setMedicalJournalSet(Set<MedicalJournal> medicalJournalSet) {
+        this.medicalJournalSet = medicalJournalSet;
     }
 }
