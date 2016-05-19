@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,6 +22,32 @@ import java.util.stream.Collectors;
 @ManagedBean(name = "analysisBean")
 @ViewScoped
 public class AnalysisBean {
+
+    public class ResultPair {
+        private String first;
+        private String second;
+
+        public ResultPair() {
+            this.first = "";
+            this.second = "";
+        }
+
+        public String getFirst() {
+            return first;
+        }
+
+        public void setFirst(String first) {
+            this.first = first;
+        }
+
+        public String getSecond() {
+            return second;
+        }
+
+        public void setSecond(String second) {
+            this.second = second;
+        }
+    }
 
     @ManagedProperty("#{analysisServiceImpl}")
     private AnalysisService analysisService;
@@ -40,22 +67,37 @@ public class AnalysisBean {
     private List<Analysis> analysisList;
 
     private List<Map.Entry<String, Object>> resultList;
+    private List<ResultPair> createdResultList;
 
     @PostConstruct
     private void init() {
         gson = new Gson();
         createdAnalysis = new Analysis();
+        createdResultList = new ArrayList<>();
         patientList = patientService.getAll();
         doctorList = doctorService.getAll();
         analysisList = analysisService.getAll();
         resultList = new ArrayList<>();
     }
 
-    public void saveCreatedAnalysis()
-    {
+    public void saveCreatedAnalysis() {
+        createdAnalysis.setResult(createResultJSON());
         analysisService.add(createdAnalysis);
         createdAnalysis = new Analysis();
+        createdResultList = new ArrayList<>();
         analysisList = analysisService.getAll();
+    }
+
+    private String createResultJSON() {
+        Map<String, Object> map = new HashMap<>();
+        for (ResultPair entry : createdResultList) {
+            map.put(entry.getFirst(), entry.getSecond());
+        }
+        return gson.toJson(map);
+    }
+
+    public void addResultRowToList() {
+        createdResultList.add(new ResultPair());
     }
 
     public void prepareToShow(Analysis analysis) {
@@ -66,11 +108,6 @@ public class AnalysisBean {
 
     public void afterShow() {
         resultList = new ArrayList<>();
-    }
-
-    private void jsonToMap(Analysis analysis) {
-        Map<String, Object> map = gson.fromJson(analysis.getResult(), new TypeToken<Map<String, Object>>(){}.getType());
-        String jsonSting = gson.toJson(map);
     }
 
     public Patient getSelectedPatient() {
@@ -131,5 +168,13 @@ public class AnalysisBean {
 
     public void setResultList(List<Map.Entry<String, Object>> resultList) {
         this.resultList = resultList;
+    }
+
+    public List<ResultPair> getCreatedResultList() {
+        return createdResultList;
+    }
+
+    public void setCreatedResultList(List<ResultPair> createdResultList) {
+        this.createdResultList = createdResultList;
     }
 }

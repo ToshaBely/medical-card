@@ -106,7 +106,6 @@
                                     <p:column>
                                         <p:inputTextarea value="#{hospital.surveyPlan}" styleClass="outputMultilineText"
                                                          readonly="true" rows="8" autoResize="false"/>
-
                                     </p:column>
 
                                     <p:column>
@@ -119,7 +118,48 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Medical journal">
-                    <h:outputText value="Comming soon..."/>
+                    <!-- TODO: add-->
+                    <p:dataTable id="medicalJournalTable" value="#{patientBean.medicalJournalList}" var="medicalJournal">
+                        <p:column style="width:16px">
+                            <p:rowToggler/>
+                        </p:column>
+
+                        <p:column headerText="Date">
+                            <h:outputText value="#{medicalJournal.date}">
+                                <f:convertDateTime pattern="yyyy-MM-dd"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Patient">
+                            <h:outputText value="#{medicalJournal.patient.fullName}"/>
+                        </p:column>
+
+                        <p:column headerText="Doctor">
+                            <h:outputText value="#{medicalJournal.doctor.fullName}"/>
+                        </p:column>
+
+                        <p:rowExpansion>
+                            <p:panelGrid style="margin: 3px;">
+                                <f:facet name="header">
+                                    <p:row>
+                                        <p:column>Observationn</p:column>
+                                        <p:column>Purpose</p:column>
+                                    </p:row>
+                                </f:facet>
+                                <p:row>
+                                    <p:column>
+                                        <p:inputTextarea value="#{medicalJournal.observation}" styleClass="outputMultilineText"
+                                                         readonly="true" rows="8" autoResize="false"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <p:inputTextarea value="#{medicalJournal.purpose}" styleClass="outputMultilineText"
+                                                         readonly="true" rows="8" autoResize="false"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:rowExpansion>
+                    </p:dataTable>
                 </p:tab>
             </p:tabView>
 
