@@ -9,12 +9,19 @@
 
     <ui:composition template="/template/main.xhtml">
         <ui:define name="body">
-            <p:tabView>
+
+            <p:growl id="growl" showDetail="false" sticky="false"/>
+
+            <p:tabView id="tabViewMenu">
                 <p:tab title="Patients">
                     <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 2px;"
                                      oncomplete="PF('createNewPatient').show()"/>
 
                     <p:dataTable id="patientTable" var="patient" value="#{patientBean.patientList}">
+                        <p:column style="width:16px">
+                            <p:rowToggler />
+                        </p:column>
+
                         <p:column headerText="First Name">
                             <h:outputText value="#{patient.firstName}"/>
                         </p:column>
@@ -36,6 +43,24 @@
                         <p:column headerText="Telephone">
                             <h:outputText value="#{patient.telephoneNumber}"/>
                         </p:column>
+
+                        <p:rowExpansion>
+                            <h:outputText value="No extras" rendered="#{patientBean.isBlankString(patient.extra)}"/>
+
+                            <p:panelGrid style="margin: 3px;" rendered="#{!patientBean.isBlankString(patient.extra)}">
+                                <f:facet name="header">
+                                    <p:row>
+                                        <p:column>Extra</p:column>
+                                    </p:row>
+                                </f:facet>
+                                <p:row>
+                                    <p:column>
+                                        <p:inputTextarea value="#{patient.extra}" styleClass="outputMultilineText"
+                                                         readonly="true" rows="6" autoResize="false"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:rowExpansion>
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Hospital">
@@ -79,11 +104,14 @@
                                 </f:facet>
                                 <p:row>
                                     <p:column>
-                                        <h:outputText value="#{hospital.surveyPlan}"/>
+                                        <p:inputTextarea value="#{hospital.surveyPlan}" styleClass="outputMultilineText"
+                                                         readonly="true" rows="8" autoResize="false"/>
+
                                     </p:column>
 
                                     <p:column>
-                                        <h:outputText value="#{hospital.treatmentPlan}"/>
+                                        <p:inputTextarea value="#{hospital.treatmentPlan}" styleClass="outputMultilineText"
+                                                         readonly="true" rows="8" autoResize="false"/>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>
@@ -95,12 +123,10 @@
                 </p:tab>
             </p:tabView>
 
-            <p:growl id="growl" showDetail="false" sticky="false"/>
-
             <p:dialog header="New Patient" widgetVar="createNewPatient" resizable="false"
-                      closable="true" modal="true" dynamic="true">
+                      closable="false" modal="true" dynamic="true">
                 <h:form id="patientForm">
-                    <p:panelGrid columns="2">
+                    <p:panelGrid columns="2" style="margin-bottom: 5px;">
                         <h:outputText value="First name: "/>
                         <p:inputText value="#{patientBean.createdPatient.firstName}"
                                      required="true" requiredMessage="First name shouldn`t be empty."/>
@@ -120,13 +146,19 @@
                         <p:calendar value="#{patientBean.createdPatient.birthDay}"
                                     title="MM/dd/yyyy" pattern="MM/dd/yyyy" showOn="button"
                                     required="true" requiredMessage="Birthday name shouldn`t be empty."/>
+
+                        <h:outputText value="Extra: "/>
+                        <p:inputTextarea value="#{patientBean.createdPatient.extra}" cols="20" rows="7"
+                                         styleClass="inputMultilineText" autoResize="false" maxlength="2000"/>
+
                     </p:panelGrid>
 
-                    <p:commandButton value="Save" actionListener="#{patientBean.saveCreatedPatient}"
-                                     update="growl, patientForm, patientTable" oncomplete="if (!args.validationFailed) PF('createNewPatient').hide()"/>
+                    <p:commandButton id="confirmButton" value="Save" actionListener="#{patientBean.saveCreatedPatient}"
+                                     update="growl, patientForm, :tabViewMenu:patientTable" icon="fa fa-check"
+                                     oncomplete="if (!args.validationFailed) PF('createNewPatient').hide()"/>
+                    <p:commandButton value="Cancel" icon="fa fa-close" oncomplete="PF('createNewPatient').hide()"/>
                 </h:form>
             </p:dialog>
-
         </ui:define>
     </ui:composition>
 

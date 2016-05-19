@@ -27,6 +27,9 @@ public class Patient {
     @Column(name = "birth_day")
     private Date birthDay;
 
+    @Column(name = "extra", length = 2000)
+    private String extra;
+
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private Set<HealthStatus> overallHealthSet;
 
@@ -145,5 +148,13 @@ public class Patient {
 
     public void setMedicalJournalSet(Set<MedicalJournal> medicalJournalSet) {
         this.medicalJournalSet = medicalJournalSet;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 }

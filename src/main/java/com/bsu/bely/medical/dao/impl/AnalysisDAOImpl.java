@@ -25,7 +25,9 @@ public class AnalysisDAOImpl implements AnalysisDAO {
     @SuppressWarnings("unchecked")
     @Override
     public List<Analysis> getAll() {
-        return sessionFactory.getCurrentSession().createCriteria(Analysis.class).list();
+        return sessionFactory.getCurrentSession().createCriteria(Analysis.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 
     @SuppressWarnings("unchecked")

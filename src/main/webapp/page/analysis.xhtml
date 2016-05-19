@@ -8,28 +8,12 @@
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/template/main.xhtml">
     <ui:define name="body">
-        <h:form id="filterForm">
-            <p:fieldset>
-                <p:commandButton value="Add" oncomplete="PF('createNewAnalysis').show()"/>
-
-                <p:commandButton action="#{analysisBean.applyFilter}" value="Apply filter"
-                                 style="float: right;" update="analysisList"/>
-
-                <p:selectOneMenu value="#{analysisBean.selectedPatient}" converter="patientConverter"
-                                 style="vertical-align: middle; width: 200px; float: right; margin-right: 10px;">
-                    <f:selectItem itemLabel="Select" itemDisabled="true"/>
-                    <f:selectItems value="#{analysisBean.patientList}" var="patient"
-                                   itemLabel="#{patient.fullName}" itemValue="#{patient}"/>
-                </p:selectOneMenu>
-
-                <h:outputText value="Patient: " style="margin-right: 10px; float: right;"/>
-            </p:fieldset>
-        </h:form>
+        <p:commandButton value="Add" oncomplete="PF('createNewAnalysis').show()" style="margin-top: 5px;" icon="fa fa-plus-circle"/>
 
         <p:dataTable id="analysisList" style="margin-top: 5px;"
                      var="analysis" value="#{analysisBean.analysisList}">
             <f:facet name="header">
-                #{analysisBean.selectedPatient.fullName}
+                Analysis
             </f:facet>
             <p:column headerText="Date">
                 <h:outputText value="#{analysis.date}">
@@ -37,14 +21,40 @@
                 </h:outputText>
             </p:column>
 
+            <p:column headerText="Patient">
+                <h:outputText value="#{analysis.patient.fullName}"/>
+            </p:column>
+
             <p:column headerText="Doctor">
                 <h:outputText value="#{analysis.doctor.fullName}"/>
             </p:column>
 
-            <p:column headerText="Result" style="width: 50%;">
-                <h:outputText value="#{analysis.result}"/>
+            <p:column headerText="Type">
+                <h:outputText value="#{analysis.type}"/>
+            </p:column>
+
+            <p:column style="width: 40px;">
+                <p:commandButton icon="fa fa-eye" action="#{analysisBean.prepareToShow(analysis)}"
+                                 update="resultTable" oncomplete="PF('resultDialog').show()"/>
             </p:column>
         </p:dataTable>
+
+        <p:dialog header="Results" widgetVar="resultDialog"
+                  closable="false" modal="true" resizable="false">
+            <p:dataTable id="resultTable" value="#{analysisBean.resultList}" var="result" style="margin-bottom: 5px; width: 500px;">
+                <p:column headerText="Mark">
+                    <h:outputText value="#{result.key}"/>
+                </p:column>
+
+                <p:column headerText="Result">
+                    <h:outputText value="#{result.value}"/>
+                </p:column>
+            </p:dataTable>
+
+            <p:commandButton icon="fa fa-close" value="Close" action="#{analysisBean.afterShow}"
+                             oncomplete="PF('resultDialog').hide()"/>
+
+        </p:dialog>
 
         <p:growl id="growl" showDetail="false" sticky="false"/>
 

@@ -4,6 +4,7 @@ import com.bsu.bely.medical.entity.HospitalStanding;
 import com.bsu.bely.medical.entity.Patient;
 import com.bsu.bely.medical.service.HospitalStandingService;
 import com.bsu.bely.medical.service.PatientService;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -38,6 +39,10 @@ public class PatientBean {
         patientService.addPatient(createdPatient);
         createdPatient = new Patient();
         patientList = patientService.getAll();
+    }
+
+    public boolean isBlankString(String string) {
+        return StringUtils.isBlank(string);
     }
 
     public void setPatientService(PatientService patientService) {

@@ -2,6 +2,7 @@ package com.bsu.bely.medical.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Map;
 
 @Entity
 @Table(name = "analysis")
@@ -10,12 +11,14 @@ public class Analysis {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //TODO: create for JSON format (maybe like a String)
     @Column(name = "result")
     private String result;
 
     @Column(name = "date")
     private Date date;
+
+    @Column(name = "type")
+    private String type;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
@@ -24,6 +27,9 @@ public class Analysis {
     @ManyToOne
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
+
+    @Transient
+    private Map<String, Object> resultMap;
 
     public Long getId() {
         return id;
@@ -59,5 +65,21 @@ public class Analysis {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Map<String, Object> getResultMap() {
+        return resultMap;
+    }
+
+    public void setResultMap(Map<String, Object> resultMap) {
+        this.resultMap = resultMap;
     }
 }
