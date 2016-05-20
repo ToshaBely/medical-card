@@ -10,4 +10,5 @@ public interface HospitalStandingDAO {
     List<HospitalStanding> getAll();
     List<HospitalStanding> getAllByPatientId(Long patientId);
     List<HospitalStanding> getAllByDoctorId(Long doctorId);
+    void update(HospitalStanding hospitalStanding);
 }

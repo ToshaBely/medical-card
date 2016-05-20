@@ -68,7 +68,7 @@
 
             <p:growl id="growl" showDetail="false" sticky="false"/>
 
-            <p:dialog header="New record" widgetVar="createNewRecord" resizable="false"
+            <p:dialog header="Thermal record" widgetVar="createNewRecord" resizable="false"
                       closable="false" modal="true" dynamic="true">
                 <h:form id="thermalForm">
                     <p:panelGrid columns="2">
@@ -102,12 +102,11 @@
                                      update="thermalList, thermalChartPanel, growl, thermalForm"
                                      oncomplete="if (!args.validationFailed) PF('createNewRecord').hide()"/>
 
-                    <p:commandButton value="Cancel"  actionListener="#{thermalSheetBean.cancelEditAdd}"
+                    <p:commandButton value="Cancel" actionListener="#{thermalSheetBean.cancelEditAdd}"
                                      icon="fa fa-close" update="thermalForm"
                                      oncomplete="PF('createNewRecord').hide()"/>
                 </h:form>
             </p:dialog>
-
         </ui:define>
     </ui:composition>
 

@@ -1,9 +1,6 @@
 package com.bsu.bely.medical.bean;
 
-import com.bsu.bely.medical.entity.Doctor;
-import com.bsu.bely.medical.entity.HospitalStanding;
-import com.bsu.bely.medical.entity.MedicalJournal;
-import com.bsu.bely.medical.entity.Patient;
+import com.bsu.bely.medical.entity.*;
 import com.bsu.bely.medical.service.DoctorService;
 import com.bsu.bely.medical.service.HospitalStandingService;
 import com.bsu.bely.medical.service.MedicalJournalService;
@@ -40,9 +37,12 @@ public class PatientBean {
     private List<MedicalJournal> medicalJournalList;
 
     private Patient createdPatient;
-    private HospitalStanding createdHospitalStanding;
+    private HospitalStanding hospitalStanding;
     private MedicalJournal createdMedicalJournal;
     private Doctor me;
+
+    private String prevSurvey;
+    private String prevTreatment;
 
     @PostConstruct
     private void init() {
@@ -53,7 +53,7 @@ public class PatientBean {
         medicalJournalList = medicalJournalService.getAllByDoctorId(me.getId());
         doctorList = doctorService.getAll();
         createdPatient = new Patient();
-        createdHospitalStanding = new HospitalStanding();
+        hospitalStanding = new HospitalStanding();
         createdMedicalJournal = new MedicalJournal();
     }
 
@@ -64,10 +64,27 @@ public class PatientBean {
     }
 
     public void saveCreatedHospitalStanding() {
-        createdHospitalStanding.setDepartmentHead(me);
-        hospitalService.add(createdHospitalStanding);
-        createdHospitalStanding = new HospitalStanding();
+        hospitalStanding.setDepartmentHead(me);
+        hospitalService.add(hospitalStanding);
+        hospitalStanding = new HospitalStanding();
         hospitalList = hospitalService.getAllByDoctorId(me.getId());
+    }
+
+    public void prepareEditedHospitalStanding(HospitalStanding editedHospitalStanding) {
+        hospitalStanding = editedHospitalStanding;
+        prevSurvey = editedHospitalStanding.getSurveyPlan();
+        prevTreatment = editedHospitalStanding.getTreatmentPlan();
+    }
+
+    public void saveEditedHospital() {
+        hospitalService.update(hospitalStanding);
+        hospitalStanding = new HospitalStanding();
+    }
+
+    public void cancelEdit() {
+        hospitalStanding.setSurveyPlan(prevSurvey);
+        hospitalStanding.setTreatmentPlan(prevTreatment);
+        hospitalStanding = new HospitalStanding();
     }
 
     public void saveCreatedMedicalJournal() {
@@ -117,12 +134,12 @@ public class PatientBean {
         this.doctorService = doctorService;
     }
 
-    public HospitalStanding getCreatedHospitalStanding() {
-        return createdHospitalStanding;
+    public HospitalStanding getHospitalStanding() {
+        return hospitalStanding;
     }
 
-    public void setCreatedHospitalStanding(HospitalStanding createdHospitalStanding) {
-        this.createdHospitalStanding = createdHospitalStanding;
+    public void setHospitalStanding(HospitalStanding hospitalStanding) {
+        this.hospitalStanding = hospitalStanding;
     }
 
     public List<Doctor> getDoctorList() {

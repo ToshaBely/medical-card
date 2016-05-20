@@ -48,4 +48,9 @@ public class HospitalStandingDAOImpl implements HospitalStandingDAO {
                 .addOrder(Order.asc("enteringDate"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
+
+    @Override
+    public void update(HospitalStanding hospitalStanding) {
+        sessionFactory.getCurrentSession().merge(hospitalStanding);
+    }
 }

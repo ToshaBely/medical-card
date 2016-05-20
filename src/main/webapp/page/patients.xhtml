@@ -64,7 +64,6 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Hospital">
-                    <!-- TODO: change-->
                     <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 2px;"
                                      oncomplete="PF('createNewHospital').show()"/>
                     <p:dataTable id="hospitalTable" value="#{patientBean.hospitalList}" var="hospital">
@@ -87,9 +86,10 @@
                         </p:column>
 
                         <p:column headerText="Discharge date">
-                            <h:outputText value="#{hospital.dischargeDate}">
+                            <h:outputText value="#{hospital.dischargeDate}" rendered="#{hospital.dischargeDate != null}">
                                 <f:convertDateTime pattern="yyyy-MM-dd"/>
                             </h:outputText>
+                            <h:outputText value="release" rendered="#{hospital.dischargeDate == null}"/>
                         </p:column>
 
                         <p:column headerText="Department head">
@@ -98,6 +98,12 @@
 
                         <p:column headerText="Therapist">
                             <h:outputText value="#{hospital.therapist.fullName}"/>
+                        </p:column>
+
+                        <p:column style="width: 40px; ">
+                            <p:commandButton icon="fa fa-edit" label="edit" update="hospitalEditForm"
+                                             actionListener="#{patientBean.prepareEditedHospitalStanding(hospital)}"
+                                             oncomplete="PF('changeHospital').show()"/>
                         </p:column>
 
                         <p:rowExpansion>
@@ -124,7 +130,6 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Medical journal">
-                    <!-- TODO: change-->
                     <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 2px;"
                                      oncomplete="PF('createNewMedicalJournal').show()"/>
                     <p:dataTable id="medicalJournalTable" value="#{patientBean.medicalJournalList}" var="medicalJournal">
@@ -212,7 +217,7 @@
                 <h:form id="hospitalForm">
                     <p:panelGrid columns="2" style="margin-bottom: 5px;">
                         <h:outputText value="Therapist: "/>
-                        <p:selectOneMenu value="#{patientBean.createdHospitalStanding.therapist}" converter="doctorConverter"
+                        <p:selectOneMenu value="#{patientBean.hospitalStanding.therapist}" converter="doctorConverter"
                                          style="vertical-align: middle; width: 410px"
                                          required="true" requiredMessage="Therapist mustn`t be empty">
                             <f:selectItem itemLabel="Select" itemDisabled="true"/>
@@ -221,7 +226,7 @@
                         </p:selectOneMenu>
 
                         <h:outputText value="Patient: "/>
-                        <p:selectOneMenu value="#{patientBean.createdHospitalStanding.patient}" converter="patientConverter"
+                        <p:selectOneMenu value="#{patientBean.hospitalStanding.patient}" converter="patientConverter"
                                          style="vertical-align: middle; width: 410px"
                                          required="true" requiredMessage="Patient mustn`t be empty">
                             <f:selectItem itemLabel="Select" itemDisabled="true"/>
@@ -230,18 +235,18 @@
                         </p:selectOneMenu>
 
                         <h:outputText value="Diagnose: "/>
-                        <p:inputText value="#{patientBean.createdHospitalStanding.diagnose}"
+                        <p:inputText value="#{patientBean.hospitalStanding.diagnose}"
                                      style="vertical-align: middle; width: 437px"
                                      required="true" requiredMessage="Diagnose mustn`t be empty."/>
 
                         <h:outputText value="Date: "/>
-                        <p:calendar value="#{patientBean.createdHospitalStanding.enteringDate}"  pattern="MM/dd/yyyy"
+                        <p:calendar value="#{patientBean.hospitalStanding.enteringDate}"  pattern="MM/dd/yyyy"
                                     required="true" requiredMessage="Date mustn`t be empty"/>
 
                     </p:panelGrid>
 
                     <p:commandButton id="confirmHospitalButton" value="Save" actionListener="#{patientBean.saveCreatedHospitalStanding}"
-                                     update="growl, hospitalForm, :tabViewMenu:hospitalTable" icon="fa fa-check"
+                                     update="growl, hospitalForm, hospitalEditForm, :tabViewMenu:hospitalTable" icon="fa fa-check"
                                      oncomplete="if (!args.validationFailed) PF('createNewHospital').hide()"/>
                     <p:commandButton value="Cancel" icon="fa fa-close" oncomplete="PF('createNewHospital').hide()"/>
                 </h:form>
@@ -276,6 +281,37 @@
                                      update="growl, medicalForm, :tabViewMenu:medicalJournalTable" icon="fa fa-check"
                                      oncomplete="if (!args.validationFailed) PF('createNewMedicalJournal').hide()"/>
                     <p:commandButton value="Cancel" icon="fa fa-close" oncomplete="PF('createNewMedicalJournal').hide()"/>
+                </h:form>
+            </p:dialog>
+
+            <p:dialog header="Edit survey and treatment" widgetVar="changeHospital" resizable="false"
+                      closable="false" modal="true" dynamic="true">
+                <h:form id="hospitalEditForm">
+                    <h:outputText value="#{patientBean.hospitalStanding.patient.fullName}" style="font-size: 1.5em;"/>
+                    <p:panelGrid style="margin: 5px; width: 850px;">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column>Survey plan</p:column>
+                                <p:column>Treatment plan</p:column>
+                            </p:row>
+                        </f:facet>
+                        <p:row>
+                            <p:column>
+                                <p:inputTextarea value="#{patientBean.hospitalStanding.surveyPlan}" styleClass="inputMultilineText"
+                                                 rows="8" autoResize="false"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputTextarea value="#{patientBean.hospitalStanding.treatmentPlan}" styleClass="inputMultilineText"
+                                                 rows="8" autoResize="false"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+
+                    <p:commandButton id="confirmChangeHospitalButton" value="Edit" actionListener="#{patientBean.saveEditedHospital}"
+                                     update="growl, hospitalForm, hospitalEditForm, :tabViewMenu:hospitalTable" icon="fa fa-check"
+                                     oncomplete="if (!args.validationFailed) PF('changeHospital').hide()"/>
+                    <p:commandButton value="Cancel" icon="fa fa-close" actionListener="#{patientBean.cancelEdit}"
+                                     update="hospitalEditForm" oncomplete="PF('changeHospital').hide()"/>
                 </h:form>
             </p:dialog>
         </ui:define>
