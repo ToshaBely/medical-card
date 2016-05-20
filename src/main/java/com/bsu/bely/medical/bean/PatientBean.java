@@ -35,10 +35,13 @@ public class PatientBean {
     private DoctorService doctorService;
 
     private List<Patient> patientList;
+    private List<Doctor> doctorList;
     private List<HospitalStanding> hospitalList;
     private List<MedicalJournal> medicalJournalList;
 
     private Patient createdPatient;
+    private HospitalStanding createdHospitalStanding;
+    private MedicalJournal createdMedicalJournal;
     private Doctor me;
 
     @PostConstruct
@@ -48,13 +51,30 @@ public class PatientBean {
         patientList = patientService.getAllForDoctor(me);
         hospitalList = hospitalService.getAllByDoctorId(me.getId());
         medicalJournalList = medicalJournalService.getAllByDoctorId(me.getId());
+        doctorList = doctorService.getAll();
         createdPatient = new Patient();
+        createdHospitalStanding = new HospitalStanding();
+        createdMedicalJournal = new MedicalJournal();
     }
 
     public void saveCreatedPatient() {
         patientService.addPatient(createdPatient);
         createdPatient = new Patient();
         patientList = patientService.getAllForDoctor(me);
+    }
+
+    public void saveCreatedHospitalStanding() {
+        createdHospitalStanding.setDepartmentHead(me);
+        hospitalService.add(createdHospitalStanding);
+        createdHospitalStanding = new HospitalStanding();
+        hospitalList = hospitalService.getAllByDoctorId(me.getId());
+    }
+
+    public void saveCreatedMedicalJournal() {
+        createdMedicalJournal.setDoctor(me);
+        medicalJournalService.add(createdMedicalJournal);
+        createdMedicalJournal = new MedicalJournal();
+        medicalJournalList = medicalJournalService.getAllByDoctorId(me.getId());
     }
 
     public boolean isBlankString(String string) {
@@ -95,5 +115,29 @@ public class PatientBean {
 
     public void setDoctorService(DoctorService doctorService) {
         this.doctorService = doctorService;
+    }
+
+    public HospitalStanding getCreatedHospitalStanding() {
+        return createdHospitalStanding;
+    }
+
+    public void setCreatedHospitalStanding(HospitalStanding createdHospitalStanding) {
+        this.createdHospitalStanding = createdHospitalStanding;
+    }
+
+    public List<Doctor> getDoctorList() {
+        return doctorList;
+    }
+
+    public void setDoctorList(List<Doctor> doctorList) {
+        this.doctorList = doctorList;
+    }
+
+    public MedicalJournal getCreatedMedicalJournal() {
+        return createdMedicalJournal;
+    }
+
+    public void setCreatedMedicalJournal(MedicalJournal createdMedicalJournal) {
+        this.createdMedicalJournal = createdMedicalJournal;
     }
 }

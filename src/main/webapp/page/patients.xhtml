@@ -64,7 +64,9 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Hospital">
-                    <!-- TODO: add-->
+                    <!-- TODO: change-->
+                    <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 2px;"
+                                     oncomplete="PF('createNewHospital').show()"/>
                     <p:dataTable id="hospitalTable" value="#{patientBean.hospitalList}" var="hospital">
                         <p:column style="width:16px">
                             <p:rowToggler />
@@ -88,6 +90,10 @@
                             <h:outputText value="#{hospital.dischargeDate}">
                                 <f:convertDateTime pattern="yyyy-MM-dd"/>
                             </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Department head">
+                            <h:outputText value="#{hospital.departmentHead.fullName}"/>
                         </p:column>
 
                         <p:column headerText="Therapist">
@@ -118,7 +124,9 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Medical journal">
-                    <!-- TODO: add-->
+                    <!-- TODO: change-->
+                    <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 2px;"
+                                     oncomplete="PF('createNewMedicalJournal').show()"/>
                     <p:dataTable id="medicalJournalTable" value="#{patientBean.medicalJournalList}" var="medicalJournal">
                         <p:column style="width:16px">
                             <p:rowToggler/>
@@ -193,10 +201,81 @@
 
                     </p:panelGrid>
 
-                    <p:commandButton id="confirmButton" value="Save" actionListener="#{patientBean.saveCreatedPatient}"
+                    <p:commandButton id="confirmPatientButton" value="Save" actionListener="#{patientBean.saveCreatedPatient}"
                                      update="growl, patientForm, :tabViewMenu:patientTable" icon="fa fa-check"
                                      oncomplete="if (!args.validationFailed) PF('createNewPatient').hide()"/>
                     <p:commandButton value="Cancel" icon="fa fa-close" oncomplete="PF('createNewPatient').hide()"/>
+                </h:form>
+            </p:dialog>
+            <p:dialog header="New Hospital Standing" widgetVar="createNewHospital" resizable="false"
+                      closable="false" modal="true" dynamic="true">
+                <h:form id="hospitalForm">
+                    <p:panelGrid columns="2" style="margin-bottom: 5px;">
+                        <h:outputText value="Therapist: "/>
+                        <p:selectOneMenu value="#{patientBean.createdHospitalStanding.therapist}" converter="doctorConverter"
+                                         style="vertical-align: middle; width: 410px"
+                                         required="true" requiredMessage="Therapist mustn`t be empty">
+                            <f:selectItem itemLabel="Select" itemDisabled="true"/>
+                            <f:selectItems value="#{patientBean.doctorList}" var="doctor"
+                                           itemLabel="#{doctor.fullName}" itemValue="#{doctor}"/>
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Patient: "/>
+                        <p:selectOneMenu value="#{patientBean.createdHospitalStanding.patient}" converter="patientConverter"
+                                         style="vertical-align: middle; width: 410px"
+                                         required="true" requiredMessage="Patient mustn`t be empty">
+                            <f:selectItem itemLabel="Select" itemDisabled="true"/>
+                            <f:selectItems value="#{patientBean.patientList}" var="patient"
+                                           itemLabel="#{patient.fullName}" itemValue="#{patient}"/>
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Diagnose: "/>
+                        <p:inputText value="#{patientBean.createdHospitalStanding.diagnose}"
+                                     style="vertical-align: middle; width: 437px"
+                                     required="true" requiredMessage="Diagnose mustn`t be empty."/>
+
+                        <h:outputText value="Date: "/>
+                        <p:calendar value="#{patientBean.createdHospitalStanding.enteringDate}"  pattern="MM/dd/yyyy"
+                                    required="true" requiredMessage="Date mustn`t be empty"/>
+
+                    </p:panelGrid>
+
+                    <p:commandButton id="confirmHospitalButton" value="Save" actionListener="#{patientBean.saveCreatedHospitalStanding}"
+                                     update="growl, hospitalForm, :tabViewMenu:hospitalTable" icon="fa fa-check"
+                                     oncomplete="if (!args.validationFailed) PF('createNewHospital').hide()"/>
+                    <p:commandButton value="Cancel" icon="fa fa-close" oncomplete="PF('createNewHospital').hide()"/>
+                </h:form>
+            </p:dialog>
+            <p:dialog header="New Medical Journal" widgetVar="createNewMedicalJournal" resizable="false"
+                      closable="false" modal="true" dynamic="true">
+                <h:form id="medicalForm">
+                    <p:panelGrid columns="2" style="margin-bottom: 5px;">
+                        <h:outputText value="Patient: "/>
+                        <p:selectOneMenu value="#{patientBean.createdMedicalJournal.patient}" converter="patientConverter"
+                                         style="vertical-align: middle; width: 350px"
+                                         required="true" requiredMessage="Patient mustn`t be empty">
+                            <f:selectItem itemLabel="Select" itemDisabled="true"/>
+                            <f:selectItems value="#{patientBean.patientList}" var="patient"
+                                           itemLabel="#{patient.fullName}" itemValue="#{patient}"/>
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Date: "/>
+                        <p:calendar value="#{patientBean.createdMedicalJournal.date}"  pattern="MM/dd/yyyy"
+                                    required="true" requiredMessage="Date mustn`t be empty"/>
+
+                        <h:outputText value="Observation: "/>
+                        <p:inputTextarea value="#{patientBean.createdMedicalJournal.observation}" styleClass="inputMultilineText"
+                                         rows="8" autoResize="false"/>
+
+                        <h:outputText value="Purpose: "/>
+                        <p:inputTextarea value="#{patientBean.createdMedicalJournal.purpose}" styleClass="inputMultilineText"
+                                         rows="8" autoResize="false"/>
+                    </p:panelGrid>
+
+                    <p:commandButton id="confirmMedicalButton" value="Save" actionListener="#{patientBean.saveCreatedMedicalJournal}"
+                                     update="growl, medicalForm, :tabViewMenu:medicalJournalTable" icon="fa fa-check"
+                                     oncomplete="if (!args.validationFailed) PF('createNewMedicalJournal').hide()"/>
+                    <p:commandButton value="Cancel" icon="fa fa-close" oncomplete="PF('createNewMedicalJournal').hide()"/>
                 </h:form>
             </p:dialog>
         </ui:define>
