@@ -31,4 +31,10 @@ public class MedicalJournalServiceImpl implements MedicalJournalService {
     public List<MedicalJournal> getAllByPatientId(Long patientId) {
         return medicalJournalDAO.getAllByPatientId(patientId);
     }
+
+    @Override
+    @Transactional
+    public List<MedicalJournal> getAllByDoctorId(Long doctorId) {
+        return medicalJournalDAO.getAllByDoctorId(doctorId);
+    }
 }

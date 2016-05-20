@@ -20,7 +20,7 @@ public class Doctor {
     @Column(name = "post")
     private String post;
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     private String login;
 
     @Column(name = "password")

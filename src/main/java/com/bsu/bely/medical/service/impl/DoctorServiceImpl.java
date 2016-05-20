@@ -25,4 +25,10 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor getDoctor(Long doctorId) {
         return doctorDAO.getDoctor(doctorId);
     }
+
+    @Override
+    @Transactional
+    public Doctor getDoctorByLogin(String userName) {
+        return doctorDAO.getDoctorByLogin(userName);
+    }
 }

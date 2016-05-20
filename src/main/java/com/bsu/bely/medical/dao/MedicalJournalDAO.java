@@ -8,4 +8,5 @@ public interface MedicalJournalDAO {
     void add(MedicalJournal medicalJournal);
     List<MedicalJournal> getAll();
     List<MedicalJournal> getAllByPatientId(Long patientId);
+    List<MedicalJournal> getAllByDoctorId(Long doctorId);
 }

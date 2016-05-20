@@ -1,11 +1,14 @@
 package com.bsu.bely.medical.bean;
 
+import com.bsu.bely.medical.entity.Doctor;
 import com.bsu.bely.medical.entity.HospitalStanding;
 import com.bsu.bely.medical.entity.MedicalJournal;
 import com.bsu.bely.medical.entity.Patient;
+import com.bsu.bely.medical.service.DoctorService;
 import com.bsu.bely.medical.service.HospitalStandingService;
 import com.bsu.bely.medical.service.MedicalJournalService;
 import com.bsu.bely.medical.service.PatientService;
+import com.bsu.bely.medical.utils.DoctorUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -28,24 +31,30 @@ public class PatientBean {
     @ManagedProperty("#{medicalJournalServiceImpl}")
     private MedicalJournalService medicalJournalService;
 
+    @ManagedProperty("#{doctorServiceImpl}")
+    private DoctorService doctorService;
+
     private List<Patient> patientList;
     private List<HospitalStanding> hospitalList;
     private List<MedicalJournal> medicalJournalList;
 
     private Patient createdPatient;
+    private Doctor me;
 
     @PostConstruct
     private void init() {
+        String login = DoctorUtils.getCurrentDoctorLogin();
+        me = doctorService.getDoctorByLogin(login);
+        patientList = patientService.getAllForDoctor(me);
+        hospitalList = hospitalService.getAllByDoctorId(me.getId());
+        medicalJournalList = medicalJournalService.getAllByDoctorId(me.getId());
         createdPatient = new Patient();
-        patientList = patientService.getAll();
-        hospitalList = hospitalService.getAll();
-        medicalJournalList = medicalJournalService.getAll();
     }
 
     public void saveCreatedPatient() {
         patientService.addPatient(createdPatient);
         createdPatient = new Patient();
-        patientList = patientService.getAll();
+        patientList = patientService.getAllForDoctor(me);
     }
 
     public boolean isBlankString(String string) {
@@ -82,5 +91,9 @@ public class PatientBean {
 
     public List<MedicalJournal> getMedicalJournalList() {
         return medicalJournalList;
+    }
+
+    public void setDoctorService(DoctorService doctorService) {
+        this.doctorService = doctorService;
     }
 }

@@ -4,10 +4,10 @@
 }
 
 .outputMultilineText {
-    border: none;
+    border: none !important;
     overflow: auto;
     resize: none;
-    width: 100%;
+    width: 99%;
 }
 
 .inputMultilineText {

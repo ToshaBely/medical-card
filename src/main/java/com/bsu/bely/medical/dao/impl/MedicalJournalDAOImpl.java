@@ -37,4 +37,13 @@ public class MedicalJournalDAOImpl implements MedicalJournalDAO {
                 .addOrder(Order.desc("date"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<MedicalJournal> getAllByDoctorId(Long doctorId) {
+        return sessionFactory.getCurrentSession().createCriteria(MedicalJournal.class)
+                .add(Restrictions.eq("doctor.id", doctorId))
+                .addOrder(Order.desc("date"))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+    }
 }
