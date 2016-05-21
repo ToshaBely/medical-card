@@ -35,7 +35,7 @@
 
             </p:panel>
 
-            <p:commandButton value="Add new record" icon="fa fa-plus-circle" style="margin-bottom: 2px;"
+            <p:commandButton value="Add new record" icon="fa fa-plus-circle" style="margin-bottom: 5px;"
                              oncomplete="PF('createNewRecord').show()"/>
 
             <p:dataTable id="thermalList" style="max-height: 400px; overflow-y: scroll;"
@@ -60,9 +60,10 @@
                 </p:column>
             </p:dataTable>
 
-            <p:panel id="thermalChartPanel" header="Temperature chart" toggleable="true" style="margin-top: 15px;">
-                <h:outputText value="Select patient" rendered="#{!thermalSheetBean.showLineModel}"/>
-                <p:chart rendered="#{thermalSheetBean.showLineModel}" type="line" model="#{thermalSheetBean.lineModel}"
+            <p:panel id="thermalChartPanel" header="Temperature chart"
+                     toggleable="true" style="margin-top: 15px;">
+                <p:chart rendered="#{!thermalSheetBean.isEmptyList}" type="line"
+                         model="#{thermalSheetBean.lineModel}"
                          style="height: 450px; text-align: center;"/>
             </p:panel>
 
@@ -70,8 +71,8 @@
 
             <p:dialog header="Thermal record" widgetVar="createNewRecord" resizable="false"
                       closable="false" modal="true" dynamic="true">
-                <h:form id="thermalForm">
-                    <p:panelGrid columns="2">
+                <h:form id="thermalForm" >
+                    <p:panelGrid columns="2" style="margin-bottom: 5px;">
                         <h:outputText value="Patient: "/>
                         <p:selectOneMenu value="#{thermalSheetBean.thermalSheet.patient}" converter="patientConverter"
                                          style="vertical-align: middle; width: 200px"
@@ -88,7 +89,7 @@
                                      required="true" requiredMessage="Temperature field must contain some info"/>
 
                         <h:outputText value="Date: "/>
-                        <p:calendar value="#{thermalSheetBean.thermalSheet.date}"  pattern="MM/dd/yyyy HH:mm:ss"
+                        <p:calendar value="#{thermalSheetBean.thermalSheet.date}"  pattern="MM/dd/yyyy HH:mm"
                                 required="true" requiredMessage="Date mustn`t be empty"/>
                     </p:panelGrid>
 

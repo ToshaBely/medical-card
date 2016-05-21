@@ -10,10 +10,10 @@
     <ui:define name="body">
         <h:form id="filterForm">
             <p:fieldset>
-                <p:commandButton value="Add" oncomplete="PF('createNewHealthStatus').show()"/>
+                <p:commandButton value="Add" icon="fa fa-plus-circle" oncomplete="PF('createNewHealthStatus').show()"/>
 
                 <p:commandButton action="#{healthStatusBean.applyFilter}" value="Apply filter"
-                                 style="float: right;" update="healthStatusList"/>
+                                 style="float: right;" update="healthStatusList" icon="fa fa-refresh"/>
 
                 <p:selectOneMenu value="#{healthStatusBean.selectedPatient}" converter="patientConverter"
                                  style="vertical-align: middle; width: 200px; float: right; margin-right: 10px;">
@@ -83,10 +83,10 @@
 
         <p:growl id="growl" showDetail="false" sticky="false"/>
 
-        <p:dialog header="New record" widgetVar="createNewHealthStatus" resizable="false"
-                  closable="true" modal="true" dynamic="true">
+        <p:dialog header="New record" widgetVar="createNewHealthStatus"
+                  resizable="false" closable="false" modal="true" dynamic="true">
             <h:form id="healthForm">
-                <p:panelGrid columns="2">
+                <p:panelGrid columns="2" style="margin-bottom: 5px;">
 
                     <h:outputText value="Patient: "/>
                     <p:selectOneMenu value="#{healthStatusBean.healthStatus.patient}" converter="patientConverter"
@@ -164,7 +164,10 @@
                 </p:panelGrid>
 
                 <p:commandButton value="Save" actionListener="#{healthStatusBean.saveCreatedThermal}"
-                                 update="healthStatusList, growl, healthForm" oncomplete="if (!args.validationFailed) PF('createNewHealthStatus').hide()"/>
+                                 update="healthStatusList, growl, healthForm" icon="fa fa-check"
+                                 oncomplete="if (!args.validationFailed) PF('createNewHealthStatus').hide()"/>
+                <p:commandButton value="Cancel" icon="fa fa-close" update="healthForm"
+                                 oncomplete="PF('createNewHealthStatus').hide()"/>
             </h:form>
         </p:dialog>
 

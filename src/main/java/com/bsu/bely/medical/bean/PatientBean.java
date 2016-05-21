@@ -1,6 +1,7 @@
 package com.bsu.bely.medical.bean;
 
 import com.bsu.bely.medical.entity.*;
+import com.bsu.bely.medical.entity.type.RoleType;
 import com.bsu.bely.medical.service.DoctorService;
 import com.bsu.bely.medical.service.HospitalStandingService;
 import com.bsu.bely.medical.service.MedicalJournalService;
@@ -13,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import java.util.Date;
 import java.util.List;
 
 @ViewScoped
@@ -49,8 +51,8 @@ public class PatientBean {
         String login = DoctorUtils.getCurrentDoctorLogin();
         me = doctorService.getDoctorByLogin(login);
         patientList = patientService.getAllForDoctor(me);
-        hospitalList = hospitalService.getAllByDoctorId(me.getId());
-        medicalJournalList = medicalJournalService.getAllByDoctorId(me.getId());
+        hospitalList = hospitalService.getAllForDoctor(me);
+        medicalJournalList = medicalJournalService.getAllForDoctor(me);
         doctorList = doctorService.getAll();
         createdPatient = new Patient();
         hospitalStanding = new HospitalStanding();
@@ -67,7 +69,7 @@ public class PatientBean {
         hospitalStanding.setDepartmentHead(me);
         hospitalService.add(hospitalStanding);
         hospitalStanding = new HospitalStanding();
-        hospitalList = hospitalService.getAllByDoctorId(me.getId());
+        hospitalList = hospitalService.getAllForDoctor(me);
     }
 
     public void prepareEditedHospitalStanding(HospitalStanding editedHospitalStanding) {
@@ -91,7 +93,11 @@ public class PatientBean {
         createdMedicalJournal.setDoctor(me);
         medicalJournalService.add(createdMedicalJournal);
         createdMedicalJournal = new MedicalJournal();
-        medicalJournalList = medicalJournalService.getAllByDoctorId(me.getId());
+        medicalJournalList = medicalJournalService.getAllForDoctor(me);
+    }
+
+    public boolean getAvailableReleaseButton(Date dischargeDate) {
+        return DoctorUtils.hasDoctorRole(me, RoleType.ROLE_DEPARTMENT_HEAD) && dischargeDate == null;
     }
 
     public boolean isBlankString(String string) {

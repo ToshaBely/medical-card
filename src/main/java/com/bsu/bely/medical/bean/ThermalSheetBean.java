@@ -42,7 +42,6 @@ public class ThermalSheetBean {
     private Date endDate;
 
     private LineChartModel lineModel;
-    private boolean showLineModel = false;
 
     @PostConstruct
     private void init() {
@@ -59,8 +58,11 @@ public class ThermalSheetBean {
         if (selectedPatient != null) {
             thermalSheetList = thermalSheetService.getThermalSheetsByPatientIdInDates(selectedPatient.getId(), startDate, endDate);
             addSeriesToLineChart();
-            showLineModel = true;
         }
+    }
+
+    public boolean getIsEmptyList() {
+        return thermalSheetList.isEmpty();
     }
 
     public void saveCreatedThermal() {
@@ -164,10 +166,6 @@ public class ThermalSheetBean {
 
     public void setLineModel(LineChartModel lineModel) {
         this.lineModel = lineModel;
-    }
-
-    public boolean isShowLineModel() {
-        return showLineModel;
     }
 
     public Date getStartDate() {

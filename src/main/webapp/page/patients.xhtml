@@ -14,7 +14,7 @@
 
             <p:tabView id="tabViewMenu">
                 <p:tab title="Patients">
-                    <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 2px;"
+                    <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 5px;"
                                      oncomplete="PF('createNewPatient').show()"/>
 
                     <p:dataTable id="patientTable" var="patient" value="#{patientBean.patientList}">
@@ -30,7 +30,7 @@
                             <h:outputText value="#{patient.lastName}"/>
                         </p:column>
 
-                        <p:column headerText="Birthday">
+                        <p:column headerText="Birthday" style="text-align: center;">
                             <h:outputText value="#{patient.birthDay}">
                                 <f:convertDateTime pattern="yyyy-MM-dd"/>
                             </h:outputText>
@@ -64,7 +64,7 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Hospital">
-                    <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 2px;"
+                    <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 5px;"
                                      oncomplete="PF('createNewHospital').show()"/>
                     <p:dataTable id="hospitalTable" value="#{patientBean.hospitalList}" var="hospital">
                         <p:column style="width:16px">
@@ -75,7 +75,7 @@
                             <h:outputText value="#{hospital.patient.fullName}"/>
                         </p:column>
 
-                        <p:column headerText="Entering date">
+                        <p:column headerText="Entering date" style="text-align: center;">
                             <h:outputText value="#{hospital.enteringDate}">
                                 <f:convertDateTime pattern="yyyy-MM-dd"/>
                             </h:outputText>
@@ -85,11 +85,13 @@
                             <h:outputText value="#{hospital.diagnose}"/>
                         </p:column>
 
-                        <p:column headerText="Discharge date">
+                        <p:column headerText="Discharge date" style="text-align: center;">
                             <h:outputText value="#{hospital.dischargeDate}" rendered="#{hospital.dischargeDate != null}">
                                 <f:convertDateTime pattern="yyyy-MM-dd"/>
                             </h:outputText>
-                            <h:outputText value="release" rendered="#{hospital.dischargeDate == null}"/>
+                            <p:commandButton value="release" actionListener="#{patientBean.prepareEditedHospitalStanding(hospital)}"
+                                             rendered="#{patientBean.getAvailableReleaseButton(hospital.dischargeDate)}" oncomplete="PF('setReleaseDate').show()"
+                                             update="releaseForm" icon="fa fa-sign-out"/>
                         </p:column>
 
                         <p:column headerText="Department head">
@@ -130,7 +132,7 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Medical journal">
-                    <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 2px;"
+                    <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 5px;"
                                      oncomplete="PF('createNewMedicalJournal').show()"/>
                     <p:dataTable id="medicalJournalTable" value="#{patientBean.medicalJournalList}" var="medicalJournal">
                         <p:column style="width:16px">
@@ -312,6 +314,19 @@
                                      oncomplete="if (!args.validationFailed) PF('changeHospital').hide()"/>
                     <p:commandButton value="Cancel" icon="fa fa-close" actionListener="#{patientBean.cancelEdit}"
                                      update="hospitalEditForm" oncomplete="PF('changeHospital').hide()"/>
+                </h:form>
+            </p:dialog>
+            <p:dialog header="Release date" widgetVar="setReleaseDate" resizable="false"
+                      closable="false" modal="true" dynamic="true">
+                <h:form id="releaseForm">
+                    <p:calendar value="#{patientBean.hospitalStanding.dischargeDate}"  pattern="MM/dd/yyyy"
+                                required="true" requiredMessage="Date mustn`t be empty"/>
+
+                    <p:commandButton id="confirmReleaseButton" value="Save" actionListener="#{patientBean.saveEditedHospital}"
+                                     update="growl, hospitalForm, hospitalEditForm, releaseForm, :tabViewMenu:hospitalTable"
+                                     icon="fa fa-check"
+                                     oncomplete="if (!args.validationFailed) PF('setReleaseDate').hide()"/>
+                    <p:commandButton value="Cancel" icon="fa fa-close" oncomplete="PF('setReleaseDate').hide()"/>
                 </h:form>
             </p:dialog>
         </ui:define>
