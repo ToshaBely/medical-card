@@ -102,22 +102,6 @@
 
                     <p:row>
                         <p:column>
-                            <h:outputText value="Doctor: "/>
-                        </p:column>
-
-                        <p:column>
-                            <p:selectOneMenu value="#{analysisBean.createdAnalysis.doctor}" converter="doctorConverter"
-                                             style="vertical-align: middle; width: 410px"
-                                             required="true" requiredMessage="Doctor mustn`t be empty">
-                                <f:selectItem itemLabel="Select" itemDisabled="true"/>
-                                <f:selectItems value="#{analysisBean.doctorList}" var="doctor"
-                                               itemLabel="#{doctor.fullName}" itemValue="#{doctor}"/>
-                            </p:selectOneMenu>
-                        </p:column>
-                    </p:row>
-
-                    <p:row>
-                        <p:column>
                             <h:outputText value="Type: "/>
                         </p:column>
 

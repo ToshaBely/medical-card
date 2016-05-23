@@ -100,6 +100,10 @@ public class PatientBean {
         return DoctorUtils.hasDoctorRole(me, RoleType.ROLE_DEPARTMENT_HEAD) && dischargeDate == null;
     }
 
+    public boolean isDischardDateIsNull(Date dischargeDate) {
+        return dischargeDate == null;
+    }
+
     public boolean isBlankString(String string) {
         return StringUtils.isBlank(string);
     }

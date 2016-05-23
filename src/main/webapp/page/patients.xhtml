@@ -14,8 +14,8 @@
 
             <p:tabView id="tabViewMenu">
                 <p:tab title="Patients">
-                    <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 5px;"
-                                     oncomplete="PF('createNewPatient').show()"/>
+                    <p:commandButton rendered="#{sessionBean.isDepartmentHead}" value="Add" icon="fa fa-plus-circle"
+                                     style="margin-bottom: 5px;" oncomplete="PF('createNewPatient').show()"/>
 
                     <p:dataTable id="patientTable" var="patient" value="#{patientBean.patientList}">
                         <p:column style="width:16px">
@@ -64,8 +64,8 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Hospital">
-                    <p:commandButton value="Add" icon="fa fa-plus-circle" style="margin-bottom: 5px;"
-                                     oncomplete="PF('createNewHospital').show()"/>
+                    <p:commandButton rendered="#{sessionBean.isDepartmentHead}" value="Add" icon="fa fa-plus-circle"
+                                     style="margin-bottom: 5px;" oncomplete="PF('createNewHospital').show()"/>
                     <p:dataTable id="hospitalTable" value="#{patientBean.hospitalList}" var="hospital">
                         <p:column style="width:16px">
                             <p:rowToggler />
@@ -104,6 +104,7 @@
 
                         <p:column style="width: 40px; ">
                             <p:commandButton icon="fa fa-edit" label="edit" update="hospitalEditForm"
+                                             rendered="#{patientBean.isDischardDateIsNull(hospital.dischargeDate)}"
                                              actionListener="#{patientBean.prepareEditedHospitalStanding(hospital)}"
                                              oncomplete="PF('changeHospital').show()"/>
                         </p:column>

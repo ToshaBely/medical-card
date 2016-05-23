@@ -6,6 +6,7 @@ import com.bsu.bely.medical.entity.Patient;
 import com.bsu.bely.medical.service.AnalysisService;
 import com.bsu.bely.medical.service.DoctorService;
 import com.bsu.bely.medical.service.PatientService;
+import com.bsu.bely.medical.utils.DoctorUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -62,9 +63,9 @@ public class AnalysisBean {
 
     private Patient selectedPatient;
     private List<Patient> patientList;
-    private List<Doctor> doctorList;
     private Analysis createdAnalysis;
     private List<Analysis> analysisList;
+    private Doctor me;
 
     private List<Map.Entry<String, Object>> resultList;
     private List<ResultPair> createdResultList;
@@ -72,16 +73,18 @@ public class AnalysisBean {
     @PostConstruct
     private void init() {
         gson = new Gson();
+        String login = DoctorUtils.getCurrentDoctorLogin();
+        me = doctorService.getDoctorByLogin(login);
+        patientList = patientService.getAllForDoctor(me);
         createdAnalysis = new Analysis();
         createdResultList = new ArrayList<>();
-        patientList = patientService.getAll();
-        doctorList = doctorService.getAll();
         analysisList = analysisService.getAll();
         resultList = new ArrayList<>();
     }
 
     public void saveCreatedAnalysis() {
         createdAnalysis.setResult(createResultJSON());
+        createdAnalysis.setDoctor(me);
         analysisService.add(createdAnalysis);
         createdAnalysis = new Analysis();
         createdResultList = new ArrayList<>();
@@ -140,14 +143,6 @@ public class AnalysisBean {
 
     public void setAnalysisList(List<Analysis> analysisList) {
         this.analysisList = analysisList;
-    }
-
-    public List<Doctor> getDoctorList() {
-        return doctorList;
-    }
-
-    public void setDoctorList(List<Doctor> doctorList) {
-        this.doctorList = doctorList;
     }
 
     public void setAnalysisService(AnalysisService analysisService) {

@@ -26,7 +26,10 @@ public class HospitalStandingDAOImpl implements HospitalStandingDAO {
     @Override
     public List<HospitalStanding> getAll() {
         return sessionFactory.getCurrentSession().createCriteria(HospitalStanding.class)
-                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .addOrder(Order.desc("dischargeDate"))
+                .addOrder(Order.asc("enteringDate"))
+                .list();
     }
 
     @SuppressWarnings("unchecked")
@@ -34,6 +37,7 @@ public class HospitalStandingDAOImpl implements HospitalStandingDAO {
     public List<HospitalStanding> getAllByPatientId(Long patientId) {
         return sessionFactory.getCurrentSession().createCriteria(HospitalStanding.class)
                 .add(Restrictions.eq("patient.id", patientId))
+                .addOrder(Order.desc("dischargeDate"))
                 .addOrder(Order.asc("enteringDate"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
@@ -45,6 +49,7 @@ public class HospitalStandingDAOImpl implements HospitalStandingDAO {
                 .add(Restrictions.or(
                         Restrictions.eq("departmentHead.id", doctorId),
                         Restrictions.eq("therapist.id", doctorId)))
+                .addOrder(Order.desc("dischargeDate"))
                 .addOrder(Order.asc("enteringDate"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }

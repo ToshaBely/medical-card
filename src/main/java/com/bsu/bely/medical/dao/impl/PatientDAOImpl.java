@@ -5,6 +5,7 @@ import com.bsu.bely.medical.entity.Doctor;
 import com.bsu.bely.medical.entity.Patient;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,10 @@ public class PatientDAOImpl implements PatientDAO {
     @Override
     public List<Patient> getAll() {
         return sessionFactory.getCurrentSession().createCriteria(Patient.class)
-                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .addOrder(Order.asc("firstName"))
+                .addOrder(Order.asc("lastName"))
+                .list();
     }
 
     @SuppressWarnings("unchecked")
