@@ -40,23 +40,23 @@
             </p:column>
 
             <p:column headerText="Overall health" style="width: 11%;">
-                <h:outputText value="#{status.overallHealth}"/>
+                <h:outputText value="#{status.overallHealth.toString()}"/>
             </p:column>
 
             <p:column headerText="Feeling" style="width: 8%;">
-                <h:outputText value="#{status.feeling}"/>
+                <h:outputText value="#{status.feeling.toString()}"/>
             </p:column>
 
             <p:column headerText="Body type" style="width: 12%;">
-                <h:outputText value="#{status.bodyType}"/>
+                <h:outputText value="#{status.bodyType.toString()}"/>
             </p:column>
 
             <p:column headerText="Skin covering" style="width: 13%;">
-                <h:outputText value="#{status.skinCovering}"/>
+                <h:outputText value="#{status.skinCovering.toString()}"/>
             </p:column>
 
             <p:column headerText="Lymph nodes" style="width: 13%;">
-                <h:outputText value="#{status.lymphNodes}"/>
+                <h:outputText value="#{status.lymphNodes.toString()}"/>
             </p:column>
 
             <p:column headerText="Temperature" style="width: 7%;">
@@ -76,7 +76,7 @@
             </p:column>
 
             <p:column headerText="Liver" style="width: 12%;">
-                <h:outputText value="#{status.liver}"/>
+                <h:outputText value="#{status.liver.toString()}"/>
             </p:column>
 
         </p:dataTable>

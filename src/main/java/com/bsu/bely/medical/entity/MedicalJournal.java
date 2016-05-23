@@ -13,10 +13,10 @@ public class MedicalJournal {
     @Column(name = "date")
     private Date date;
 
-    @Column(name = "observation")
+    @Column(name = "observation", length = 2000)
     private String observation;
 
-    @Column(name = "purpose")
+    @Column(name = "purpose", length = 2000)
     private String purpose;
 
     @ManyToOne

@@ -11,7 +11,7 @@ public class Analysis {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "result")
+    @Column(name = "result", length = 3000)
     private String result;
 
     @Column(name = "date")

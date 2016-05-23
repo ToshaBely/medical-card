@@ -183,11 +183,11 @@
                 <h:form id="patientForm">
                     <p:panelGrid columns="2" style="margin-bottom: 5px;">
                         <h:outputText value="First name: "/>
-                        <p:inputText value="#{patientBean.createdPatient.firstName}"
+                        <p:inputText value="#{patientBean.createdPatient.firstName}" maxlength="30"
                                      required="true" requiredMessage="First name shouldn`t be empty."/>
 
                         <h:outputText value="Last name: "/>
-                        <p:inputText value="#{patientBean.createdPatient.lastName}"
+                        <p:inputText value="#{patientBean.createdPatient.lastName}" maxlength="30"
                                      required="true" requiredMessage="Last name shouldn`t be empty."/>
 
                         <h:outputText value="Passport: "/>
@@ -237,7 +237,7 @@
                         </p:selectOneMenu>
 
                         <h:outputText value="Diagnose: "/>
-                        <p:inputText value="#{patientBean.hospitalStanding.diagnose}"
+                        <p:inputText value="#{patientBean.hospitalStanding.diagnose}" maxlength="255"
                                      style="vertical-align: middle; width: 437px"
                                      required="true" requiredMessage="Diagnose mustn`t be empty."/>
 
@@ -272,11 +272,11 @@
 
                         <h:outputText value="Observation: "/>
                         <p:inputTextarea value="#{patientBean.createdMedicalJournal.observation}" styleClass="inputMultilineText"
-                                         rows="8" autoResize="false"/>
+                                         rows="8" autoResize="false" maxlength="2000"/>
 
                         <h:outputText value="Purpose: "/>
                         <p:inputTextarea value="#{patientBean.createdMedicalJournal.purpose}" styleClass="inputMultilineText"
-                                         rows="8" autoResize="false"/>
+                                         rows="8" autoResize="false" maxlength="2000"/>
                     </p:panelGrid>
 
                     <p:commandButton id="confirmMedicalButton" value="Save" actionListener="#{patientBean.saveCreatedMedicalJournal}"

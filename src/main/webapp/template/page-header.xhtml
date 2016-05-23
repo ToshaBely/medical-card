@@ -12,14 +12,15 @@
                     <p:menubar>
                         <p:menuitem value="My patients" action="patients" icon="fa fa-child"/>
                         <p:menuitem value="Thermal sheet" action="thermalSheet" icon="fa fa-fire"/>
-                        <p:menuitem value="Personal" action="personal" icon="fa fa-user"/>
+                        <p:menuitem value="Personal" action="personal" icon="fa fa-user" rendered="#{sessionBean.isDepartmentHead}"/>
                         <p:menuitem value="Health status" action="healthStatus" icon="fa fa-stethoscope"/>
                         <p:menuitem value="Analysis" action="analysis" icon="fa fa-medkit"/>
+                        <f:facet name="options">
+                            <p:menuitem value="Log Out" actionListener="#{sessionBean.logoff}" icon="fa fa-sign-out"/>
+                        </f:facet>
                     </p:menubar>
                 </h:form>
             </div>
         </ui:composition>
     </h:body>
 </html>
-
-<!--aaaa<p:menuitem value="Log Out" actionListener="#{sessionBean.logoff}" icon="ui-icon-extlink"/>aaaa-->
