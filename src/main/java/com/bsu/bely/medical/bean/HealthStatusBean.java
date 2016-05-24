@@ -1,11 +1,14 @@
 package com.bsu.bely.medical.bean;
 
+import com.bsu.bely.medical.entity.Doctor;
 import com.bsu.bely.medical.entity.HealthStatus;
 import com.bsu.bely.medical.entity.Patient;
 import com.bsu.bely.medical.entity.ThermalSheet;
 import com.bsu.bely.medical.entity.type.*;
+import com.bsu.bely.medical.service.DoctorService;
 import com.bsu.bely.medical.service.HealthStatusService;
 import com.bsu.bely.medical.service.PatientService;
+import com.bsu.bely.medical.utils.DoctorUtils;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -29,10 +32,14 @@ public class HealthStatusBean {
     @ManagedProperty("#{patientServiceImpl}")
     private PatientService patientService;
 
+    @ManagedProperty("#{doctorServiceImpl}")
+    private DoctorService doctorService;
+
     private List<HealthStatus> healthStatusList;
     private HealthStatus healthStatus;
     private List<Patient> patientList;
     private Patient selectedPatient;
+    private Doctor me;
 
     private List<BodyType> bodyTypes = Arrays.asList(BodyType.values());
     private List<FeelingType> feelingTypes = Arrays.asList(FeelingType.values());
@@ -43,7 +50,9 @@ public class HealthStatusBean {
 
     @PostConstruct
     private void init() {
-        patientList = patientService.getAll();
+        String login = DoctorUtils.getCurrentDoctorLogin();
+        me = doctorService.getDoctorByLogin(login);
+        patientList = patientService.getAllForDoctor(me);
         healthStatusList = new ArrayList<>();
         healthStatus = new HealthStatus();
     }
@@ -152,5 +161,9 @@ public class HealthStatusBean {
 
     public void setSkinTypes(List<SkinType> skinTypes) {
         this.skinTypes = skinTypes;
+    }
+
+    public void setDoctorService(DoctorService doctorService) {
+        this.doctorService = doctorService;
     }
 }
